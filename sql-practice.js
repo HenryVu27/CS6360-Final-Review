@@ -1084,22 +1084,22 @@ function renderCategoryNav() {
     if (!nav) return;
 
     const categories = [
-        { id: 'createTable', name: 'CREATE TABLE', icon: '🏗️' },
-        { id: 'alterDrop', name: 'ALTER/DROP', icon: '🔧' },
-        { id: 'basicSelect', name: 'Basic SELECT', icon: '🔍' },
-        { id: 'patternNull', name: 'Patterns & NULL', icon: '🎯' },
-        { id: 'joins', name: 'JOINs', icon: '🔗' },
-        { id: 'aggregates', name: 'Aggregates', icon: '📊' },
-        { id: 'groupBy', name: 'GROUP BY', icon: '📁' },
-        { id: 'subqueryType1', name: 'Subqueries I', icon: '📦' },
-        { id: 'subqueryType2', name: 'Subqueries II', icon: '📦' },
-        { id: 'setOps', name: 'Set Operations', icon: '∪' },
-        { id: 'views', name: 'Views', icon: '👁️' },
-        { id: 'insert', name: 'INSERT', icon: '➕' },
-        { id: 'update', name: 'UPDATE', icon: '✏️' },
-        { id: 'delete', name: 'DELETE', icon: '🗑️' },
-        { id: 'derivedTables', name: 'Derived Tables', icon: '📋' },
-        { id: 'difference', name: 'Difference', icon: '➖' }
+        { id: 'createTable', name: 'CREATE TABLE' },
+        { id: 'alterDrop', name: 'ALTER/DROP' },
+        { id: 'basicSelect', name: 'Basic SELECT' },
+        { id: 'patternNull', name: 'Patterns & NULL' },
+        { id: 'joins', name: 'JOINs' },
+        { id: 'aggregates', name: 'Aggregates' },
+        { id: 'groupBy', name: 'GROUP BY' },
+        { id: 'subqueryType1', name: 'Subqueries I' },
+        { id: 'subqueryType2', name: 'Subqueries II' },
+        { id: 'setOps', name: 'Set Operations' },
+        { id: 'views', name: 'Views' },
+        { id: 'insert', name: 'INSERT' },
+        { id: 'update', name: 'UPDATE' },
+        { id: 'delete', name: 'DELETE' },
+        { id: 'derivedTables', name: 'Derived Tables' },
+        { id: 'difference', name: 'Difference' }
     ];
 
     nav.innerHTML = categories.map(cat => {
@@ -1108,7 +1108,6 @@ function renderCategoryNav() {
         return `<button class="sql-cat-btn ${currentCategory === cat.id ? 'active' : ''}"
                         data-category="${cat.id}"
                         onclick="selectCategory('${cat.id}')">
-            <span class="cat-icon">${cat.icon}</span>
             <span class="cat-name">${cat.name}</span>
             <span class="cat-progress">${completed}/${exercises.length}</span>
         </button>`;
@@ -1194,7 +1193,7 @@ function renderExercise() {
             </div>
             <div class="exercise-meta">
                 <span class="difficulty ${exercise.difficulty.toLowerCase()}">${exercise.difficulty}</span>
-                ${completed ? '<span class="completed-badge">✓ Completed</span>' : ''}
+                ${completed ? '<span class="completed-badge">Completed</span>' : ''}
             </div>
         </div>
 
@@ -1212,11 +1211,11 @@ function renderExercise() {
             </div>
 
             <div class="exercise-actions">
-                <button class="btn hint-btn" onclick="showHint()">💡 Show Hint</button>
-                <button class="btn check-btn" onclick="checkAnswer()">✓ Check Answer</button>
-                <button class="btn answer-btn" onclick="showAnswer()">📖 Show Answer</button>
+                <button class="btn hint-btn" onclick="showHint()">Show Hint</button>
+                <button class="btn check-btn" onclick="checkAnswer()">Check Answer</button>
+                <button class="btn answer-btn" onclick="showAnswer()">Show Answer</button>
                 <button class="btn primary mark-btn ${completed}" onclick="markExerciseComplete('${exercise.id}')">
-                    ${completed ? '✓ Completed' : 'Mark Complete'}
+                    ${completed ? 'Completed' : 'Mark Complete'}
                 </button>
             </div>
 
@@ -1295,13 +1294,142 @@ function checkAnswer() {
     let correct = 0;
     let total = exercise.keyPoints.length;
 
+    // Special keyword mappings for concepts that aren't literal keywords
+    const keywordMappings = {
+        'Data types': ['INTEGER', 'INT', 'VARCHAR', 'CHAR', 'NUMERIC', 'DATE', 'TIME', 'REAL', 'FLOAT', 'SMALLINT', 'BOOLEAN', 'TEXT'],
+        'Comparison operators': ['>', '<', '>=', '<=', '=', '<>', '!='],
+        'Multiple conditions': ['AND', 'OR'],
+        'AND operator': ['AND'],
+        'OR operator': ['OR'],
+        'IN operator': ['IN'],
+        'CHECK constraint': ['CHECK'],
+        'NUMERIC type': ['NUMERIC'],
+        'ADD CONSTRAINT': ['ALTER', 'ADD', 'CONSTRAINT'],
+        'CHECK with comparison': ['CHECK', '>'],
+        'Self join': ['JOIN'],
+        'Implicit join': ['FROM', 'WHERE', '='],
+        'WHERE condition': ['WHERE'],
+        'Column restriction': true,
+        'Column specification': ['(', ')'],
+        'Text comparison': ['=', "'"],
+        'NULL comparison': ['IS NULL'],
+        'NULL handling': true,
+        'ON clause': ['ON'],
+        'Value list': ['IN', '('],
+        'Eliminate duplicates': ['DISTINCT'],
+        'Column list': true, // Just check that it's not SELECT *
+        'Arithmetic expressions': ['*', '+', '-', '/'],
+        'Composite PRIMARY KEY': ['PRIMARY KEY (', 'PRIMARY KEY('],
+        'Table aliases': true, // Check for alias pattern
+        'Join condition in WHERE': ['WHERE', '='],
+        'Multiple table join': true,
+        'Multiple join conditions': ['AND'],
+        'Same table twice': true,
+        'Include unmatched rows': ['LEFT', 'RIGHT', 'FULL', 'OUTER'],
+        'Include all from right table': ['RIGHT'],
+        'All rows from both tables': ['FULL'],
+        'Count all rows': ['COUNT(*)'],
+        'Unique count': ['DISTINCT'],
+        'Filter with WHERE': ['WHERE'],
+        'Multiple aggregates': ['(', ')'],
+        'Aggregate per group': ['GROUP BY'],
+        'Filter groups after aggregation': ['HAVING'],
+        'WHERE before GROUP BY': ['WHERE', 'GROUP BY'],
+        'HAVING after GROUP BY': ['GROUP BY', 'HAVING'],
+        'GROUP BY multiple columns': [','],
+        'JOIN with GROUP BY': ['JOIN', 'GROUP BY'],
+        'HAVING with COUNT': ['HAVING', 'COUNT'],
+        'Non-correlated subquery': ['SELECT', 'WHERE'],
+        'Finding non-matches': ['NOT IN', 'NOT EXISTS', 'EXCEPT'],
+        'Scalar subquery': ['SELECT', 'WHERE'],
+        'Comparison with aggregate': ['AVG', 'MAX', 'MIN', 'SUM', 'COUNT'],
+        'Subquery with MAX': ['MAX'],
+        'Finding maximum': ['MAX'],
+        'Nested subqueries': ['SELECT'],
+        'Multiple levels': ['SELECT'],
+        'Correlated subquery': ['WHERE'],
+        'Reference to outer query': true,
+        'Division operation': ['NOT EXISTS'],
+        'Double NOT EXISTS': ['NOT EXISTS'],
+        'Combines results': ['UNION'],
+        'Removes duplicates': ['UNION'],
+        'Keeps duplicates': ['UNION ALL'],
+        'Common values': ['INTERSECT'],
+        'Set difference': ['EXCEPT', 'MINUS'],
+        'View with aggregation': ['VIEW', 'GROUP BY'],
+        'Column restriction': ['SELECT'],
+        'Security': true,
+        'View with JOIN': ['VIEW', 'JOIN'],
+        'Query from view': ['SELECT', 'FROM'],
+        'Views as virtual tables': true,
+        'NULL for unknown': ['NULL'],
+        'Partial INSERT': ['INSERT'],
+        'Column specification': ['(', ')'],
+        'Bulk insert from query': ['INSERT', 'SELECT'],
+        'Arithmetic in SET': ['SET', '*', '+'],
+        'Conditional update': ['WHERE'],
+        'UPDATE multiple columns': [','],
+        'SET with comma': ['SET', ','],
+        'Text comparison': ['='],
+        'No WHERE = all rows': true,
+        'DELETE with subquery': ['DELETE', 'SELECT'],
+        'Derived table': ['FROM', 'SELECT', 'AS'],
+        'Nested aggregate': ['AVG', 'MAX', 'MIN', 'SUM', 'COUNT'],
+        'Alias required': ['AS'],
+        'Derived tables in FROM': ['FROM', 'SELECT'],
+        'Nested aggregates': ['AVG', 'MAX', 'MIN', 'SUM', 'COUNT'],
+        'Difference via subquery': ['NOT IN', 'SELECT'],
+        'Correlated difference': ['NOT EXISTS'],
+        'IS NULL for no match': ['IS NULL'],
+        'Inclusive range': ['BETWEEN']
+    };
+
     exercise.keyPoints.forEach(keyword => {
-        const keywordUpper = keyword.toUpperCase().replace(/[^A-Z0-9 ]/g, '');
-        if (userInput.includes(keywordUpper) || userInput.includes(keyword.toUpperCase())) {
-            feedback.push(`<span class="check-correct">✓ Contains "${keyword}"</span>`);
+        let found = false;
+
+        // Check if there's a special mapping for this keyword
+        if (keywordMappings[keyword]) {
+            const mapping = keywordMappings[keyword];
+            if (mapping === true) {
+                // Special case - just mark as found if the query has content
+                found = userInput.length > 10;
+            } else if (Array.isArray(mapping)) {
+                // Check if ANY of the mapped keywords are present
+                found = mapping.some(kw => userInput.includes(kw.toUpperCase()));
+            }
+        } else {
+            // Default: extract SQL keywords from the key point and check each one
+            // e.g., "UPDATE with WHERE" -> check for UPDATE and WHERE
+            // e.g., "PRIMARY KEY" -> check for PRIMARY KEY
+            const sqlKeywords = ['SELECT', 'FROM', 'WHERE', 'INSERT', 'UPDATE', 'DELETE',
+                                 'CREATE', 'DROP', 'ALTER', 'TABLE', 'VIEW', 'INDEX',
+                                 'PRIMARY KEY', 'FOREIGN KEY', 'REFERENCES', 'NOT NULL',
+                                 'UNIQUE', 'CHECK', 'DEFAULT', 'CASCADE', 'SET NULL',
+                                 'GROUP BY', 'ORDER BY', 'HAVING', 'DISTINCT', 'AS',
+                                 'JOIN', 'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL JOIN',
+                                 'ON', 'AND', 'OR', 'NOT', 'IN', 'EXISTS', 'BETWEEN', 'LIKE',
+                                 'IS NULL', 'IS NOT NULL', 'UNION', 'INTERSECT', 'EXCEPT',
+                                 'COUNT', 'SUM', 'AVG', 'MAX', 'MIN', 'SET', 'VALUES', 'INTO'];
+
+            // Find which SQL keywords are mentioned in this key point
+            const keywordUpper = keyword.toUpperCase();
+            const mentionedKeywords = sqlKeywords.filter(sql => keywordUpper.includes(sql));
+
+            if (mentionedKeywords.length > 0) {
+                // Check if ALL mentioned SQL keywords are in the user's input
+                found = mentionedKeywords.every(sql => userInput.includes(sql));
+            } else {
+                // No SQL keywords found, just check the whole phrase
+                const cleaned = keywordUpper.replace(/[^A-Z0-9 _]/g, '');
+                found = userInput.includes(cleaned);
+            }
+        }
+
+        if (found) {
+            feedback.push(`<span class="check-correct">[OK] Contains "${keyword}"</span>`);
             correct++;
         } else {
-            feedback.push(`<span class="check-missing">✗ Missing or incorrect: "${keyword}"</span>`);
+            feedback.push(`<span class="check-missing">[X] Missing or incorrect: "${keyword}"</span>`);
         }
     });
 
@@ -1310,15 +1438,15 @@ function checkAnswer() {
 
     // Check for common errors
     if (userInput.includes('= NULL') && !userInput.includes('IS NULL')) {
-        syntaxChecks.push('<span class="check-warning">⚠ Use IS NULL instead of = NULL</span>');
+        syntaxChecks.push('<span class="check-warning">[!] Use IS NULL instead of = NULL</span>');
     }
     if (userInput.includes('WHERE') && userInput.includes('HAVING') &&
         userInput.indexOf('WHERE') > userInput.indexOf('HAVING')) {
-        syntaxChecks.push('<span class="check-warning">⚠ WHERE should come before HAVING</span>');
+        syntaxChecks.push('<span class="check-warning">[!] WHERE should come before HAVING</span>');
     }
     if (userInput.includes('GROUP BY') && userInput.includes('WHERE') &&
         userInput.indexOf('GROUP BY') < userInput.indexOf('WHERE')) {
-        syntaxChecks.push('<span class="check-warning">⚠ WHERE should come before GROUP BY</span>');
+        syntaxChecks.push('<span class="check-warning">[!] WHERE should come before GROUP BY</span>');
     }
 
     const score = Math.round((correct / total) * 100);

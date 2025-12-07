@@ -39,37 +39,30 @@
 
             <div class="topic-cards">
                 <div class="topic-card" onclick="navigateTo('dbms-basics')">
-                    <div class="card-icon">📊</div>
                     <h3>DBMS Basics</h3>
                     <p>Three-schema architecture, data models, integrity constraints, relational algebra</p>
                 </div>
                 <div class="topic-card" onclick="navigateTo('er-eer')">
-                    <div class="card-icon">📐</div>
                     <h3>ER & EER Diagrams</h3>
                     <p>Entity types, relationships, cardinality, specialization, generalization</p>
                 </div>
                 <div class="topic-card" onclick="navigateTo('normalization')">
-                    <div class="card-icon">🔧</div>
                     <h3>Normalization</h3>
                     <p>1NF, 2NF, 3NF, BCNF, functional dependencies, decomposition</p>
                 </div>
                 <div class="topic-card" onclick="navigateTo('sql')">
-                    <div class="card-icon">💻</div>
                     <h3>SQL</h3>
                     <p>DDL, DML, queries, joins, subqueries, aggregates</p>
                 </div>
                 <div class="topic-card" onclick="navigateTo('transactions')">
-                    <div class="card-icon">🔄</div>
                     <h3>Transactions</h3>
                     <p>ACID properties, concurrency control, recovery, serializability</p>
                 </div>
                 <div class="topic-card highlight" onclick="navigateTo('quiz')">
-                    <div class="card-icon">✅</div>
                     <h3>Take a Quiz</h3>
                     <p>Test your knowledge with practice questions</p>
                 </div>
                 <div class="topic-card highlight" onclick="navigateTo('sql-practice')">
-                    <div class="card-icon">⌨️</div>
                     <h3>SQL Practice</h3>
                     <p>Write SQL queries with interactive exercises and instant feedback</p>
                 </div>
@@ -586,7 +579,7 @@
                         </div>
 
                         <div class="derived-card important">
-                            <h4>DIVISION (R ÷ S) ⭐ EXAM FAVORITE</h4>
+                            <h4>DIVISION (R ÷ S) - EXAM FAVORITE</h4>
                             <p>Given: R(A, B) and S(B), find A values in R that are associated with ALL B values in S</p>
                             <div class="formula-box">
                                 <p class="formula">R ÷ S = π<sub>A</sub>(R) − π<sub>A</sub>((π<sub>A</sub>(R) × S) − R)</p>
@@ -2017,11 +2010,6 @@ CREATE VIEW CumGpa (StudId, Cum) AS
             <p class="intro">Write SQL queries to solve problems. Practice DDL, DML, queries, joins, and more!</p>
 
             <div class="sql-practice-layout">
-                <!-- SQL Reference Sidebar -->
-                <aside id="sql-reference-sidebar" class="sql-reference-sidebar">
-                    <!-- Reference content loaded by JavaScript -->
-                </aside>
-
                 <!-- Main Practice Area -->
                 <div class="sql-practice-main">
                     <!-- Category Navigation -->
@@ -2034,6 +2022,11 @@ CREATE VIEW CumGpa (StudId, Cum) AS
                         <!-- Exercise content loaded by JavaScript -->
                     </div>
                 </div>
+
+                <!-- SQL Reference Sidebar -->
+                <aside id="sql-reference-sidebar" class="sql-reference-sidebar">
+                    <!-- Reference content loaded by JavaScript -->
+                </aside>
             </div>
         </section>
     </main>
