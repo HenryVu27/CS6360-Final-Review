@@ -28,6 +28,19 @@ function navigateTo(sectionId) {
         initSQLPractice();
     }
 
+    // Initialize RA Practice if navigating to that section
+    if (sectionId === 'ra-practice' && typeof initRAPractice === 'function') {
+        initRAPractice();
+    }
+
+    // Initialize Constraint Verification if navigating to that section
+    if (sectionId === 'constraint-verification' && typeof initConstraintVerification === 'function') {
+        initConstraintVerification();
+        if (typeof renderConceptReference === 'function') {
+            renderConceptReference();
+        }
+    }
+
     // Scroll to top
     window.scrollTo(0, 0);
 }

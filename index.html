@@ -21,6 +21,8 @@
             <li><a href="#" class="nav-item" data-section="flashcards">Flashcards</a></li>
             <li><a href="#" class="nav-item" data-section="quiz">Quiz</a></li>
             <li><a href="#" class="nav-item" data-section="sql-practice">SQL Practice</a></li>
+            <li><a href="#" class="nav-item" data-section="ra-practice">RA Practice</a></li>
+            <li><a href="#" class="nav-item" data-section="constraint-verification">Constraint Verification</a></li>
         </ul>
         <div class="progress-container">
             <h4>Study Progress</h4>
@@ -65,6 +67,14 @@
                 <div class="topic-card highlight" onclick="navigateTo('sql-practice')">
                     <h3>SQL Practice</h3>
                     <p>Write SQL queries with interactive exercises and instant feedback</p>
+                </div>
+                <div class="topic-card highlight" onclick="navigateTo('ra-practice')">
+                    <h3>Relational Algebra Practice</h3>
+                    <p>Write RA expressions, evaluate step-by-step, and master division problems</p>
+                </div>
+                <div class="topic-card highlight" onclick="navigateTo('constraint-verification')">
+                    <h3>Constraint Verification</h3>
+                    <p>Practice identifying violations and tracing CASCADE/SET NULL actions</p>
                 </div>
             </div>
         </section>
@@ -1042,6 +1052,7 @@ B(s1, s2, s3, b)</pre>
                 <button class="topic-btn" data-topic="closure">Attribute Closure</button>
                 <button class="topic-btn" data-topic="normal-forms">Normal Forms</button>
                 <button class="topic-btn" data-topic="decomposition">Decomposition</button>
+                <button class="topic-btn" data-topic="norm-practice">Practice Exercises</button>
             </div>
 
             <div class="topic-content">
@@ -1281,6 +1292,19 @@ while there exists S in Decomp not in BCNF:
                         </ul>
                     </div>
                     <button class="mark-complete-btn" data-topic="norm-decomp">Mark as Studied</button>
+                </div>
+
+                <div id="norm-practice" class="topic-panel">
+                    <h2>Normalization Practice Exercises</h2>
+                    <p class="intro">Test your understanding with interactive exercises on attribute closure, normal forms, candidate keys, and minimal cover.</p>
+
+                    <div id="norm-category-nav" class="norm-category-nav">
+                        <!-- Category buttons loaded by JavaScript -->
+                    </div>
+
+                    <div id="norm-exercise-container" class="norm-exercise-container">
+                        <!-- Exercise content loaded by JavaScript -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -2029,9 +2053,61 @@ CREATE VIEW CumGpa (StudId, Cum) AS
                 </aside>
             </div>
         </section>
+
+        <!-- Relational Algebra Practice Section -->
+        <section id="ra-practice" class="section">
+            <h1>Relational Algebra Practice</h1>
+            <p class="intro">Master relational algebra with interactive exercises covering expressions, evaluation, equivalences, and division problems.</p>
+
+            <div class="ra-practice-layout">
+                <!-- Main Practice Area -->
+                <div class="ra-practice-main">
+                    <!-- Category Navigation -->
+                    <div id="ra-category-nav" class="ra-category-nav">
+                        <!-- Categories loaded by JavaScript -->
+                    </div>
+
+                    <!-- Exercise Container -->
+                    <div id="ra-exercise-container" class="ra-exercise-container">
+                        <!-- Exercise content loaded by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- RA Reference Sidebar -->
+                <aside id="ra-reference-sidebar" class="ra-reference-sidebar">
+                    <!-- Reference content loaded by JavaScript -->
+                </aside>
+            </div>
+        </section>
+
+        <!-- Constraint Verification Section -->
+        <section id="constraint-verification" class="section">
+            <h1>Constraint Verification Practice</h1>
+            <p class="intro">Practice identifying integrity constraint violations and tracing referential actions (CASCADE, SET NULL).</p>
+
+            <div class="constraint-layout">
+                <!-- Concept Reference Cards -->
+                <div id="concept-reference" class="concept-reference">
+                    <!-- Loaded by JavaScript -->
+                </div>
+
+                <!-- Quiz Container -->
+                <div id="constraint-quiz-container" class="constraint-quiz-container">
+                    <!-- Quiz content loaded by JavaScript -->
+                </div>
+
+                <!-- Reset Button -->
+                <div class="reset-section">
+                    <button class="btn reset-btn" onclick="resetConstraintProgress()">Reset Progress</button>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script src="app.js"></script>
     <script src="sql-practice.js"></script>
+    <script src="relational-algebra-practice.js"></script>
+    <script src="normalization.js"></script>
+    <script src="constraint-verification.js"></script>
 </body>
 </html>
