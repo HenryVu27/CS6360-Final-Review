@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Final Exam Study Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo">
+            <h2>DBMS Study Guide</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="nav-item active" data-section="home">Home</a></li>
+            <li><a href="#" class="nav-item" data-section="dbms-basics">DBMS Basics</a></li>
+            <li><a href="#" class="nav-item" data-section="er-eer">ER & EER Diagrams</a></li>
+            <li><a href="#" class="nav-item" data-section="normalization">Normalization</a></li>
+            <li><a href="#" class="nav-item" data-section="sql">SQL</a></li>
+            <li><a href="#" class="nav-item" data-section="transactions">Transactions</a></li>
+            <li><a href="#" class="nav-item" data-section="flashcards">Flashcards</a></li>
+            <li><a href="#" class="nav-item" data-section="quiz">Quiz</a></li>
+        </ul>
+        <div class="progress-container">
+            <h4>Study Progress</h4>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <span id="progress-text">0% Complete</span>
+        </div>
+    </nav>
+
+    <main class="content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <h1>Welcome to DBMS Final Exam Study Guide</h1>
+            <p class="intro">Master database concepts with interactive learning tools!</p>
+
+            <div class="topic-cards">
+                <div class="topic-card" onclick="navigateTo('dbms-basics')">
+                    <div class="card-icon">📊</div>
+                    <h3>DBMS Basics</h3>
+                    <p>Three-schema architecture, data models, integrity constraints, relational algebra</p>
+                </div>
+                <div class="topic-card" onclick="navigateTo('er-eer')">
+                    <div class="card-icon">📐</div>
+                    <h3>ER & EER Diagrams</h3>
+                    <p>Entity types, relationships, cardinality, specialization, generalization</p>
+                </div>
+                <div class="topic-card" onclick="navigateTo('normalization')">
+                    <div class="card-icon">🔧</div>
+                    <h3>Normalization</h3>
+                    <p>1NF, 2NF, 3NF, BCNF, functional dependencies, decomposition</p>
+                </div>
+                <div class="topic-card" onclick="navigateTo('sql')">
+                    <div class="card-icon">💻</div>
+                    <h3>SQL</h3>
+                    <p>DDL, DML, queries, joins, subqueries, aggregates</p>
+                </div>
+                <div class="topic-card" onclick="navigateTo('transactions')">
+                    <div class="card-icon">🔄</div>
+                    <h3>Transactions</h3>
+                    <p>ACID properties, concurrency control, recovery, serializability</p>
+                </div>
+                <div class="topic-card highlight" onclick="navigateTo('quiz')">
+                    <div class="card-icon">✅</div>
+                    <h3>Take a Quiz</h3>
+                    <p>Test your knowledge with practice questions</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DBMS Basics Section -->
+        <section id="dbms-basics" class="section">
+            <h1>DBMS Fundamentals</h1>
+
+            <div class="topic-nav">
+                <button class="topic-btn active" data-topic="definitions">Key Definitions</button>
+                <button class="topic-btn" data-topic="three-schema">Three-Schema</button>
+                <button class="topic-btn" data-topic="data-models">Data Models</button>
+                <button class="topic-btn" data-topic="dbms-languages">DBMS Languages</button>
+                <button class="topic-btn" data-topic="constraints">Constraints</button>
+                <button class="topic-btn" data-topic="relational-algebra">Relational Algebra</button>
+                <button class="topic-btn" data-topic="er-mapping">ER Mapping</button>
+            </div>
+
+            <div class="topic-content">
+                <div id="definitions" class="topic-panel active">
+                    <h2>Key Definitions</h2>
+                    <div class="definition-list">
+                        <div class="definition-item">
+                            <strong>Data:</strong> Raw facts that can be recorded and have implicit meaning
+                        </div>
+                        <div class="definition-item">
+                            <strong>Information:</strong> Processed data
+                        </div>
+                        <div class="definition-item">
+                            <strong>Database:</strong> Collection of data central to some enterprise (persistent)
+                        </div>
+                        <div class="definition-item">
+                            <strong>Mini-world:</strong> Part of real world about which data is stored
+                        </div>
+                        <div class="definition-item">
+                            <strong>Metadata:</strong> Description of the database stored in DBMS catalog
+                        </div>
+                        <div class="definition-item">
+                            <strong>DBMS:</strong> Software package that manages a database
+                        </div>
+                        <div class="definition-item">
+                            <strong>Database System:</strong> DBMS software + data (sometimes includes applications)
+                        </div>
+                        <div class="definition-item">
+                            <strong>Schema (Intension):</strong> Description/structure of the database, changes infrequently
+                        </div>
+                        <div class="definition-item">
+                            <strong>Instance (Extension):</strong> Actual data at a particular moment, changes with every update
+                        </div>
+                    </div>
+
+                    <h3>Relational Model Terminology</h3>
+                    <div class="terminology-table">
+                        <table>
+                            <tr><th>Informal Term</th><th>Formal Term</th></tr>
+                            <tr><td>Table</td><td>Relation</td></tr>
+                            <tr><td>Column</td><td>Attribute</td></tr>
+                            <tr><td>Values in column</td><td>Domain</td></tr>
+                            <tr><td>Row</td><td>Tuple</td></tr>
+                            <tr><td>Table Definition</td><td>Schema of Relation</td></tr>
+                            <tr><td>Populated Table</td><td>Extension</td></tr>
+                        </table>
+                    </div>
+
+                    <h3>Key Properties</h3>
+                    <ul class="feature-list">
+                        <li><strong>Arity (Degree):</strong> Number of attributes in a relation</li>
+                        <li><strong>Cardinality:</strong> Number of tuples in a relation</li>
+                    </ul>
+
+                    <h3>What a DBMS Provides</h3>
+                    <ul class="feature-list">
+                        <li>High-level access language (e.g., SQL)</li>
+                        <li>Concurrent access to large amounts of data</li>
+                        <li>Secure, atomic access</li>
+                        <li>Backup and recovery services</li>
+                        <li>Integrity constraint enforcement</li>
+                    </ul>
+
+                    <h3>When NOT to Use a DBMS</h3>
+                    <ul class="feature-list warning">
+                        <li>Simple, well-defined data not expected to change</li>
+                        <li>No multi-user access required</li>
+                        <li>DBMS cannot handle data complexity</li>
+                        <li>Special operations not supported</li>
+                    </ul>
+                    <button class="mark-complete-btn" data-topic="dbms-definitions">Mark as Studied</button>
+                </div>
+
+                <div id="three-schema" class="topic-panel">
+                    <h2>Three-Schema Architecture</h2>
+                    <p><strong>Purpose:</strong> Support program-data independence and multiple views</p>
+
+                    <div class="schema-diagram">
+                        <div class="schema-level external">
+                            <h4>External Schema</h4>
+                            <p>User views - Different views for different user categories</p>
+                            <p>Virtual data (computed when accessed)</p>
+                        </div>
+                        <div class="schema-arrow">↕ External/Conceptual Mapping</div>
+                        <div class="schema-level conceptual">
+                            <h4>Conceptual Schema</h4>
+                            <p>Structure and constraints for whole database</p>
+                            <p>Hides storage details</p>
+                        </div>
+                        <div class="schema-arrow">↕ Conceptual/Internal Mapping</div>
+                        <div class="schema-level internal">
+                            <h4>Internal Schema</h4>
+                            <p>Data storage structures and access paths</p>
+                            <p>Uses physical data model</p>
+                        </div>
+                    </div>
+
+                    <h3>Data Independence</h3>
+                    <div class="two-column">
+                        <div class="column">
+                            <h4>Logical Data Independence</h4>
+                            <p>Ability to change conceptual schema without changing external schemas. Applications don't need to change.</p>
+                        </div>
+                        <div class="column">
+                            <h4>Physical Data Independence</h4>
+                            <p>Ability to change internal schema without changing conceptual schema. Only mappings need to change.</p>
+                        </div>
+                    </div>
+                    <button class="mark-complete-btn" data-topic="dbms-schema">Mark as Studied</button>
+                </div>
+
+                <div id="data-models" class="topic-panel">
+                    <h2>Data Model Categories</h2>
+
+                    <div class="model-categories">
+                        <div class="model-card">
+                            <h4>Conceptual (High-level, Semantic)</h4>
+                            <p>Entity-based / Object-based</p>
+                            <p>Close to user perception</p>
+                            <p><em>Example: ER Model</em></p>
+                        </div>
+                        <div class="model-card">
+                            <h4>Physical (Low-level, Internal)</h4>
+                            <p>How data is stored in computer</p>
+                            <p>Describes storage structures and access paths</p>
+                        </div>
+                        <div class="model-card">
+                            <h4>Implementation (Record-oriented)</h4>
+                            <p>Balance between user views and storage details</p>
+                            <p><em>Examples: Relational, Network, Hierarchical</em></p>
+                        </div>
+                    </div>
+
+                    <h3>Database Models Comparison</h3>
+                    <div class="db-models-comparison">
+                        <div class="db-model">
+                            <h4>Hierarchical Model</h4>
+                            <p><strong>Structure:</strong> Tree (parent-child)</p>
+                            <p><strong>Pros:</strong> Simplicity, security, integrity, efficiency</p>
+                            <p><strong>Cons:</strong> Complex implementation, lacks structural independence</p>
+                        </div>
+                        <div class="db-model">
+                            <h4>Network Model</h4>
+                            <p><strong>Structure:</strong> Child can have multiple parents</p>
+                            <p><strong>Pros:</strong> Handles more relationship types, data access flexibility</p>
+                            <p><strong>Cons:</strong> System complexity, lacks structural independence</p>
+                        </div>
+                        <div class="db-model">
+                            <h4>Relational Model</h4>
+                            <p><strong>Structure:</strong> Data as tables (relations)</p>
+                            <p><strong>Pros:</strong> Structural independence, simplicity, SQL, powerful DBMS</p>
+                            <p><strong>Cons:</strong> Hardware/software overhead, potential poor design</p>
+                        </div>
+                    </div>
+                    <button class="mark-complete-btn" data-topic="dbms-models">Mark as Studied</button>
+                </div>
+
+                <div id="dbms-languages" class="topic-panel">
+                    <h2>DBMS Languages</h2>
+
+                    <div class="language-cards">
+                        <div class="language-card">
+                            <h4>DDL (Data Definition Language)</h4>
+                            <ul>
+                                <li>Define conceptual schema</li>
+                                <li>Define internal and external schemas</li>
+                                <li>Result: catalog (metadata stored in file)</li>
+                            </ul>
+                            <p><em>Examples: CREATE, ALTER, DROP</em></p>
+                        </div>
+                        <div class="language-card">
+                            <h4>DML (Data Manipulation Language)</h4>
+                            <ul>
+                                <li>Specify retrievals and updates</li>
+                                <li><strong>High-level (nonprocedural):</strong> Describe WHAT data is needed</li>
+                                <li><strong>Low-level (procedural):</strong> Describe WHAT and HOW</li>
+                            </ul>
+                            <p><em>Examples: SELECT, INSERT, UPDATE, DELETE</em></p>
+                        </div>
+                        <div class="language-card">
+                            <h4>SDL (Storage Definition Language)</h4>
+                            <ul>
+                                <li>Directives that influence physical schema</li>
+                                <li>Specifies storage structures</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>Types of Relational DMLs</h3>
+                    <ul class="feature-list">
+                        <li><strong>Relational Algebra:</strong> ISBL</li>
+                        <li><strong>Tuple Calculus:</strong> SQL</li>
+                        <li><strong>Domain Calculus:</strong> QBE</li>
+                    </ul>
+                    <p class="note">A DML with same "retrieval power" as relational algebra = <strong>RELATIONALLY COMPLETE</strong></p>
+                    <button class="mark-complete-btn" data-topic="dbms-languages">Mark as Studied</button>
+                </div>
+
+                <div id="constraints" class="topic-panel">
+                    <h2>Integrity Constraints</h2>
+
+                    <h3>Three Main Types</h3>
+                    <div class="constraint-cards">
+                        <div class="constraint-card">
+                            <h4>Key Constraints</h4>
+                            <p><strong>Superkey:</strong> Set of attributes where no two tuples have same value</p>
+                            <p><strong>Key (Candidate Key):</strong> MINIMAL superkey</p>
+                            <p><strong>Primary Key:</strong> One chosen candidate key to identify tuples</p>
+                        </div>
+                        <div class="constraint-card">
+                            <h4>Entity Integrity</h4>
+                            <p>Primary key attributes CANNOT be NULL</p>
+                            <p>PKs are used to identify individual tuples</p>
+                            <p>Formula: t[PK] ≠ null for any tuple t</p>
+                        </div>
+                        <div class="constraint-card">
+                            <h4>Referential Integrity</h4>
+                            <p>FK in R1 references PK of R2</p>
+                            <p>Conditions:</p>
+                            <ul>
+                                <li>Dom(R1.FK) = Dom(R2.PK)</li>
+                                <li>t1[FK] = t2[PK] OR t1[FK] = NULL</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>Constraint Categories</h3>
+                    <div class="two-column">
+                        <div class="column">
+                            <h4>Static Constraints</h4>
+                            <ul>
+                                <li><strong>Syntactic:</strong> e.g., unique values</li>
+                                <li><strong>Semantic:</strong> e.g., cannot register for more than 9 credits</li>
+                            </ul>
+                        </div>
+                        <div class="column">
+                            <h4>Dynamic Constraints</h4>
+                            <p>Limitation on sequence of states</p>
+                            <p>Example: Cannot raise salary > 5%</p>
+                        </div>
+                    </div>
+                    <button class="mark-complete-btn" data-topic="dbms-constraints">Mark as Studied</button>
+                </div>
+
+                <div id="relational-algebra" class="topic-panel">
+                    <h2>Relational Algebra</h2>
+
+                    <h3>Union Compatibility (Type Compatibility)</h3>
+                    <div class="highlight-box warning">
+                        <p><strong>Required for:</strong> UNION, INTERSECTION, SET DIFFERENCE</p>
+                        <p>Two relations R and S are <strong>union compatible</strong> if:</p>
+                        <ul>
+                            <li>Same number of attributes (same degree)</li>
+                            <li>Corresponding attributes have same (or compatible) domains</li>
+                        </ul>
+                    </div>
+
+                    <h3>Basic Operators (Complete Set)</h3>
+                    <div class="operator-table">
+                        <table>
+                            <tr>
+                                <th>Operator</th>
+                                <th>Symbol</th>
+                                <th>What It Does</th>
+                                <th>Preconditions/Requirements</th>
+                            </tr>
+                            <tr>
+                                <td><strong>SELECT</strong></td>
+                                <td>σ</td>
+                                <td>Selects ROWS satisfying condition</td>
+                                <td>
+                                    <ul>
+                                        <li>Condition attributes must exist in relation</li>
+                                        <li>Condition must be a valid boolean expression</li>
+                                        <li>Comparison values must be domain-compatible</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>PROJECT</strong></td>
+                                <td>π</td>
+                                <td>Selects COLUMNS, eliminates duplicates</td>
+                                <td>
+                                    <ul>
+                                        <li>Projected attributes must exist in relation</li>
+                                        <li>Result automatically removes duplicate tuples</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>UNION</strong></td>
+                                <td>∪</td>
+                                <td>All tuples in R1 or R2 (duplicates removed)</td>
+                                <td>
+                                    <ul>
+                                        <li><strong>Union compatible</strong> (same degree, compatible domains)</li>
+                                        <li>Result uses attribute names from first relation</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>INTERSECTION</strong></td>
+                                <td>∩</td>
+                                <td>Tuples in BOTH R1 and R2</td>
+                                <td>
+                                    <ul>
+                                        <li><strong>Union compatible</strong> (same degree, compatible domains)</li>
+                                        <li>Derived: R ∩ S = R − (R − S)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>SET DIFFERENCE</strong></td>
+                                <td>−</td>
+                                <td>Tuples in R1 but NOT in R2</td>
+                                <td>
+                                    <ul>
+                                        <li><strong>Union compatible</strong> (same degree, compatible domains)</li>
+                                        <li>Order matters: R − S ≠ S − R</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>CARTESIAN PRODUCT</strong></td>
+                                <td>×</td>
+                                <td>All combinations of tuples</td>
+                                <td>
+                                    <ul>
+                                        <li>No preconditions on relations</li>
+                                        <li>If common attribute names exist, prefix with relation name</li>
+                                        <li>Result has degree(R) + degree(S) attributes</li>
+                                        <li>Result has |R| × |S| tuples</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>RENAME</strong></td>
+                                <td>ρ</td>
+                                <td>Renames relation or attributes</td>
+                                <td>
+                                    <ul>
+                                        <li>New name must be valid identifier</li>
+                                        <li>Number of new attribute names must match degree</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <h3>Join Operations</h3>
+                    <div class="operator-table">
+                        <table>
+                            <tr>
+                                <th>Join Type</th>
+                                <th>Definition</th>
+                                <th>Preconditions/Requirements</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Theta Join (θ)</strong></td>
+                                <td>R ⋈<sub>θ</sub> S = σ<sub>θ</sub>(R × S)</td>
+                                <td>
+                                    <ul>
+                                        <li>θ is any valid comparison condition</li>
+                                        <li>Attributes in θ must exist in R or S</li>
+                                        <li>Compared attributes must have compatible domains</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Equijoin</strong></td>
+                                <td>Theta join where θ uses ONLY equality (=)</td>
+                                <td>
+                                    <ul>
+                                        <li>Same as theta join</li>
+                                        <li>Condition: R.A = S.B (equality only)</li>
+                                        <li>Result contains both R.A and S.B columns</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Natural Join (*)</strong></td>
+                                <td>Equijoin on ALL common attributes, duplicates eliminated</td>
+                                <td>
+                                    <ul>
+                                        <li>R and S must have at least one common attribute name</li>
+                                        <li>Common attributes must have compatible domains</li>
+                                        <li>Result removes duplicate columns</li>
+                                        <li>If no common attributes → Cartesian product</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <h3>Outer Joins</h3>
+                    <div class="operator-table">
+                        <table>
+                            <tr>
+                                <th>Outer Join Type</th>
+                                <th>What It Does</th>
+                                <th>Preconditions</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Left Outer Join (⟕)</strong></td>
+                                <td>ALL tuples from R, matching from S, unmatched padded with NULLs</td>
+                                <td>Same as natural join; must have common attributes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Right Outer Join (⟖)</strong></td>
+                                <td>ALL tuples from S, matching from R, unmatched padded with NULLs</td>
+                                <td>Same as natural join; must have common attributes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Full Outer Join (⟗)</strong></td>
+                                <td>ALL tuples from BOTH, unmatched padded with NULLs</td>
+                                <td>Same as natural join; must have common attributes</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <h3>Division (r ÷ s)</h3>
+                    <div class="highlight-box">
+                        <p><strong>What it does:</strong> Returns tuples &lt;a&gt; from r where for EVERY tuple &lt;b&gt; in s, &lt;a,b&gt; exists in r</p>
+                        <p><em>Example: "Students who passed ALL courses taught in S2000"</em></p>
+                    </div>
+                    <div class="operator-table">
+                        <table>
+                            <tr>
+                                <th>Preconditions for Division r ÷ s</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>Let r have schema R(A1, A2, ..., Am, B1, B2, ..., Bn)</li>
+                                        <li>Let s have schema S(B1, B2, ..., Bn)</li>
+                                        <li><strong>S's attributes must be a subset of R's attributes</strong></li>
+                                        <li>Result has attributes: R − S = (A1, A2, ..., Am)</li>
+                                        <li>Division formula: r ÷ s = π<sub>R−S</sub>(r) − π<sub>R−S</sub>((π<sub>R−S</sub>(r) × s) − r)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <h3>Aggregate Functions</h3>
+                    <div class="highlight-box">
+                        <p><strong>Notation:</strong> <sub>grouping_attrs</sub>ℑ<sub>function_list</sub>(R)</p>
+                        <p>Functions: SUM, COUNT, AVG, MIN, MAX</p>
+                        <p><strong>Preconditions:</strong></p>
+                        <ul>
+                            <li>Grouping attributes must exist in relation</li>
+                            <li>Aggregated attributes must have appropriate domains (numeric for SUM, AVG)</li>
+                            <li>COUNT(*) counts all tuples; COUNT(attr) ignores NULLs</li>
+                        </ul>
+                    </div>
+
+                    <h3>Derived Operators Using Basic Operators</h3>
+                    <div class="highlight-box warning">
+                        <p><strong>IMPORTANT FOR EXAMS:</strong> The 5 basic operators are: σ (SELECT), π (PROJECT), ∪ (UNION), − (SET DIFFERENCE), × (CARTESIAN PRODUCT)</p>
+                        <p>All other operators can be derived from these!</p>
+                    </div>
+
+                    <div class="derived-operators">
+                        <div class="derived-card">
+                            <h4>INTERSECTION (R ∩ S)</h4>
+                            <div class="formula-box">
+                                <p class="formula">R ∩ S = R − (R − S)</p>
+                            </div>
+                            <p class="explanation">Remove from R everything that's not in S</p>
+                            <p class="alternative">Alternative: R ∩ S = S − (S − R)</p>
+                        </div>
+
+                        <div class="derived-card">
+                            <h4>THETA JOIN (R ⋈<sub>θ</sub> S)</h4>
+                            <div class="formula-box">
+                                <p class="formula">R ⋈<sub>θ</sub> S = σ<sub>θ</sub>(R × S)</p>
+                            </div>
+                            <p class="explanation">Cartesian product, then select rows satisfying condition θ</p>
+                        </div>
+
+                        <div class="derived-card">
+                            <h4>EQUIJOIN (R ⋈<sub>R.A=S.B</sub> S)</h4>
+                            <div class="formula-box">
+                                <p class="formula">R ⋈<sub>R.A=S.B</sub> S = σ<sub>R.A=S.B</sub>(R × S)</p>
+                            </div>
+                            <p class="explanation">Theta join where condition uses only equality</p>
+                        </div>
+
+                        <div class="derived-card">
+                            <h4>NATURAL JOIN (R * S)</h4>
+                            <p>Let common attributes be: A1, A2, ..., An</p>
+                            <div class="formula-box">
+                                <p class="formula">R * S = π<sub>unique attrs</sub>(σ<sub>R.A1=S.A1 ∧ R.A2=S.A2 ∧ ... ∧ R.An=S.An</sub>(R × S))</p>
+                            </div>
+                            <p class="explanation">Cartesian product → Select matching common attrs → Project to remove duplicates</p>
+                        </div>
+
+                        <div class="derived-card important">
+                            <h4>DIVISION (R ÷ S) ⭐ EXAM FAVORITE</h4>
+                            <p>Given: R(A, B) and S(B), find A values in R that are associated with ALL B values in S</p>
+                            <div class="formula-box">
+                                <p class="formula">R ÷ S = π<sub>A</sub>(R) − π<sub>A</sub>((π<sub>A</sub>(R) × S) − R)</p>
+                            </div>
+                            <div class="step-breakdown">
+                                <p><strong>Step-by-step breakdown:</strong></p>
+                                <ol>
+                                    <li><strong>π<sub>A</sub>(R)</strong> = Get all A values from R</li>
+                                    <li><strong>π<sub>A</sub>(R) × S</strong> = Pair every A with every B in S (all possible combinations)</li>
+                                    <li><strong>(π<sub>A</sub>(R) × S) − R</strong> = Find (A,B) pairs that DON'T exist in R (missing combinations)</li>
+                                    <li><strong>π<sub>A</sub>(...)</strong> = Get A values that are missing some B</li>
+                                    <li><strong>π<sub>A</sub>(R) − ...</strong> = Remove those A values → leaves A values with ALL B's</li>
+                                </ol>
+                            </div>
+                            <div class="example-box">
+                                <p><strong>Example:</strong> Students who took ALL courses</p>
+                                <p>Enrolled(StudentID, CourseID) ÷ Courses(CourseID)</p>
+                                <pre>
+π<sub>StudentID</sub>(Enrolled) − π<sub>StudentID</sub>((π<sub>StudentID</sub>(Enrolled) × Courses) − Enrolled)</pre>
+                            </div>
+                        </div>
+
+                        <div class="derived-card">
+                            <h4>LEFT OUTER JOIN (R ⟕ S)</h4>
+                            <div class="formula-box">
+                                <p class="formula">R ⟕ S = (R * S) ∪ ((R − π<sub>R-attrs</sub>(R * S)) × {(null, null, ...)})</p>
+                            </div>
+                            <p class="explanation">Natural join UNION (unmatched R tuples padded with nulls)</p>
+                            <p class="note-small">Note: The null padding part is conceptual; pure RA doesn't have nulls</p>
+                        </div>
+
+                        <div class="derived-card">
+                            <h4>RIGHT OUTER JOIN (R ⟖ S)</h4>
+                            <div class="formula-box">
+                                <p class="formula">R ⟖ S = (R * S) ∪ ({(null, null, ...)} × (S − π<sub>S-attrs</sub>(R * S)))</p>
+                            </div>
+                            <p class="explanation">Natural join UNION (unmatched S tuples padded with nulls)</p>
+                        </div>
+
+                        <div class="derived-card">
+                            <h4>FULL OUTER JOIN (R ⟗ S)</h4>
+                            <div class="formula-box">
+                                <p class="formula">R ⟗ S = (R ⟕ S) ∪ (R ⟖ S)</p>
+                            </div>
+                            <p class="explanation">Left outer join UNION right outer join</p>
+                        </div>
+
+                        <div class="derived-card">
+                            <h4>SEMIJOIN (R ⋉ S)</h4>
+                            <div class="formula-box">
+                                <p class="formula">R ⋉ S = π<sub>R-attrs</sub>(R * S)</p>
+                            </div>
+                            <p class="explanation">Tuples of R that have a matching tuple in S</p>
+                        </div>
+
+                        <div class="derived-card">
+                            <h4>ANTIJOIN (R ▷ S)</h4>
+                            <div class="formula-box">
+                                <p class="formula">R ▷ S = R − (R ⋉ S) = R − π<sub>R-attrs</sub>(R * S)</p>
+                            </div>
+                            <p class="explanation">Tuples of R that have NO matching tuple in S</p>
+                        </div>
+                    </div>
+
+                    <h3>Quick Reference: Derivation Summary</h3>
+                    <div class="operator-table">
+                        <table>
+                            <tr>
+                                <th>Derived Operator</th>
+                                <th>Using Basic Operators</th>
+                            </tr>
+                            <tr>
+                                <td>R ∩ S</td>
+                                <td>R − (R − S)</td>
+                            </tr>
+                            <tr>
+                                <td>R ⋈<sub>θ</sub> S</td>
+                                <td>σ<sub>θ</sub>(R × S)</td>
+                            </tr>
+                            <tr>
+                                <td>R * S (natural join)</td>
+                                <td>π<sub>unique</sub>(σ<sub>common attrs equal</sub>(R × S))</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td><strong>R ÷ S (division)</strong></td>
+                                <td><strong>π<sub>A</sub>(R) − π<sub>A</sub>((π<sub>A</sub>(R) × S) − R)</strong></td>
+                            </tr>
+                            <tr>
+                                <td>R ⋉ S (semijoin)</td>
+                                <td>π<sub>R-attrs</sub>(R * S)</td>
+                            </tr>
+                            <tr>
+                                <td>R ▷ S (antijoin)</td>
+                                <td>R − π<sub>R-attrs</sub>(R * S)</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <button class="mark-complete-btn" data-topic="dbms-algebra">Mark as Studied</button>
+                </div>
+
+                <div id="er-mapping" class="topic-panel">
+                    <h2>ER-to-Relational Mapping</h2>
+
+                    <h3>Basic Mapping Rules</h3>
+                    <div class="mapping-rules">
+                        <div class="mapping-rule">
+                            <strong>Entity</strong> &rarr; Table
+                        </div>
+                        <div class="mapping-rule">
+                            <strong>Attribute</strong> &rarr; Column
+                        </div>
+                        <div class="mapping-rule">
+                            <strong>Many-to-many relationships</strong> &rarr; New table
+                        </div>
+                        <div class="mapping-rule">
+                            <strong>One-to-one and one-to-many</strong> &rarr; Key propagation (foreign key)
+                        </div>
+                        <div class="mapping-rule">
+                            <strong>Relationship with attributes</strong> &rarr; Map to a table
+                        </div>
+                    </div>
+
+                    <h3>Mapping Keys</h3>
+                    <ul class="feature-list">
+                        <li><strong>Strong entities:</strong> Use entity's key as table's primary key</li>
+                        <li><strong>Weak entities:</strong> Combine entity's partial key + strong entity's key</li>
+                        <li><strong>Relationship tables:</strong> Use keys from both entity types as composite key</li>
+                    </ul>
+
+                    <h3>EER Mapping (Generalization/Specialization)</h3>
+                    <p>Given superclass S with attributes (s1, s2, s3) and subclasses A(a) and B(b):</p>
+
+                    <div class="eer-alternatives">
+                        <div class="alt-card">
+                            <h4>Alternative 1: Multiple Tables</h4>
+                            <p>Superclass + Subclass tables</p>
+                            <pre>S(s1, s2, s3)     -- s1 is PK
+A(s1, a)          -- s1 is FK to S
+B(s1, b)          -- s1 is FK to S</pre>
+                        </div>
+                        <div class="alt-card">
+                            <h4>Alternative 2: Only Subclass Tables</h4>
+                            <p>All superclass attributes + subclass attributes</p>
+                            <pre>A(s1, s2, s3, a)
+B(s1, s2, s3, b)</pre>
+                        </div>
+                        <div class="alt-card">
+                            <h4>Alternative 3: Single Table</h4>
+                            <p><strong>If DISJOINT:</strong></p>
+                            <pre>C(s1, s2, s3, a, b)
+-- s3 is discriminator attribute</pre>
+                            <p><strong>If OVERLAPPING:</strong></p>
+                            <pre>C(s1, s2, s3, aflag, a, bflag, b)
+-- flags indicate which subclass</pre>
+                        </div>
+                    </div>
+
+                    <h3>Participation Constraints in EER Mapping</h3>
+                    <ul class="feature-list">
+                        <li><strong>Total participation:</strong> At least one flag must be true</li>
+                        <li><strong>Non-total participation:</strong> One or both flags may be false</li>
+                    </ul>
+                    <button class="mark-complete-btn" data-topic="dbms-ermapping">Mark as Studied</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ER & EER Section -->
+        <section id="er-eer" class="section">
+            <h1>ER & EER Diagrams</h1>
+
+            <div class="topic-nav">
+                <button class="topic-btn active" data-topic="er-basics">ER Basics</button>
+                <button class="topic-btn" data-topic="relationships">Relationships</button>
+                <button class="topic-btn" data-topic="ternary">Ternary & N-ary</button>
+                <button class="topic-btn" data-topic="weak-entities">Weak Entities</button>
+                <button class="topic-btn" data-topic="eer">EER Model</button>
+                <button class="topic-btn" data-topic="er-design">Design Guidelines</button>
+            </div>
+
+            <div class="topic-content">
+                <div id="er-basics" class="topic-panel active">
+                    <h2>ER Model Core Concepts</h2>
+
+                    <h3>Database Design Phases</h3>
+                    <ol class="design-phases">
+                        <li><strong>Conceptual Design:</strong> Use ER Model, then translate to relational schema</li>
+                        <li><strong>Schema Refinement (Normalization):</strong> Check for redundancies and anomalies</li>
+                        <li><strong>Physical Database Design:</strong> Consider workloads, indexes, access paths</li>
+                    </ol>
+
+                    <h3>Entities</h3>
+                    <p>Real-world objects/things represented in database (Students, Courses, Employees)</p>
+                    <ul class="feature-list">
+                        <li><strong>Entity Type:</strong> Set of similar entities (intension/schema)</li>
+                        <li><strong>Entity Set:</strong> Collection of all entities of a type (extension/data)</li>
+                        <li>Drawn as <span class="notation">RECTANGLES</span></li>
+                    </ul>
+
+                    <h3>Attribute Types</h3>
+                    <div class="attribute-grid">
+                        <div class="attr-card">
+                            <div class="attr-symbol">○</div>
+                            <h4>Simple</h4>
+                            <p>Single atomic value (StudentID, Age)</p>
+                        </div>
+                        <div class="attr-card">
+                            <div class="attr-symbol">○─○─○</div>
+                            <h4>Composite</h4>
+                            <p>Multiple components (Name = First + Last)</p>
+                        </div>
+                        <div class="attr-card">
+                            <div class="attr-symbol">◎</div>
+                            <h4>Multi-valued</h4>
+                            <p>Multiple values {Colors}, DOUBLE OVAL</p>
+                        </div>
+                        <div class="attr-card">
+                            <div class="attr-symbol">○̲</div>
+                            <h4>Derived</h4>
+                            <p>Computed from others, DASHED OVAL</p>
+                        </div>
+                        <div class="attr-card">
+                            <div class="attr-symbol"><u>○</u></div>
+                            <h4>Key</h4>
+                            <p>Unique identifier, UNDERLINED</p>
+                        </div>
+                    </div>
+                    <button class="mark-complete-btn" data-topic="er-basics">Mark as Studied</button>
+                </div>
+
+                <div id="relationships" class="topic-panel">
+                    <h2>Relationships</h2>
+
+                    <h3>Cardinality Ratios</h3>
+                    <div class="cardinality-examples">
+                        <div class="card-example">
+                            <strong>1:1</strong> - EMPLOYEE manages STORE
+                        </div>
+                        <div class="card-example">
+                            <strong>1:N</strong> - PAINTER paints PAINTING
+                        </div>
+                        <div class="card-example">
+                            <strong>M:N</strong> - STUDENT takes COURSE
+                        </div>
+                    </div>
+
+                    <h3>Participation Constraints</h3>
+                    <div class="two-column">
+                        <div class="column">
+                            <h4>Total (Existence Dependency)</h4>
+                            <p>Every entity MUST participate</p>
+                            <p>Shown by <strong>DOUBLE LINE</strong></p>
+                        </div>
+                        <div class="column">
+                            <h4>Partial</h4>
+                            <p>Some entities may not participate</p>
+                            <p>Shown by <strong>SINGLE LINE</strong></p>
+                        </div>
+                    </div>
+
+                    <h3>(MIN, MAX) Notation</h3>
+                    <p>More precise constraint specification on each entity's participation</p>
+                    <div class="notation-examples">
+                        <div class="notation-item"><strong>(1,1)</strong> - Exactly one (total, single value)</div>
+                        <div class="notation-item"><strong>(0,1)</strong> - Optional, at most one</div>
+                        <div class="notation-item"><strong>(0,N)</strong> - Optional, any number</div>
+                        <div class="notation-item"><strong>(1,N)</strong> - Must participate, any number</div>
+                    </div>
+                    <p class="note">Rules: min ≤ max, min ≥ 0, max ≥ 1</p>
+                    <button class="mark-complete-btn" data-topic="er-relationships">Mark as Studied</button>
+                </div>
+
+                <div id="ternary" class="topic-panel">
+                    <h2>Ternary and Higher-Degree Relationships</h2>
+
+                    <h3>Degree of Relationship</h3>
+                    <ul class="feature-list">
+                        <li><strong>Binary:</strong> Connects 2 entity types (most common)</li>
+                        <li><strong>Ternary:</strong> Connects 3 entity types</li>
+                        <li><strong>N-ary:</strong> Connects n entity types</li>
+                    </ul>
+                    <div class="highlight-box warning">
+                        <p><strong>Important:</strong> N-ary relationship is NOT equivalent to n binary relationships!</p>
+                    </div>
+
+                    <h3>When to Use Ternary Relationships</h3>
+                    <ul class="feature-list">
+                        <li>When relationship involves three entity types simultaneously</li>
+                        <li>Binary relationships cannot capture the same information</li>
+                        <li>When specific combination of all three matters</li>
+                    </ul>
+                    <p><em>Example: SUPPLY(Supplier, Part, Project) with Quantity attribute</em></p>
+
+                    <h3>Ternary vs Binary</h3>
+                    <ul class="feature-list warning">
+                        <li>Cannot always decompose ternary into binaries</li>
+                        <li>Information may be lost</li>
+                        <li>Use ternary when specific combination of all three matters</li>
+                    </ul>
+
+                    <h3>Constraints on Ternary</h3>
+                    <div class="highlight-box">
+                        <p><strong>m:n:p notation</strong> on three arms is <strong>AMBIGUOUS</strong> (does not fully specify constraints)</p>
+                        <p>Use <strong>(min,max) notation</strong> instead for precision</p>
+                        <p>Specifies how many relationship instances each entity participates in</p>
+                    </div>
+
+                    <h3>Recursive Relationship</h3>
+                    <ul class="feature-list">
+                        <li>Same entity type participates twice with different roles</li>
+                        <li>Example: EMPLOYEE supervises EMPLOYEE (supervisor/supervisee roles)</li>
+                        <li>Must label roles on diagram edges</li>
+                    </ul>
+                    <button class="mark-complete-btn" data-topic="er-ternary">Mark as Studied</button>
+                </div>
+
+                <div id="weak-entities" class="topic-panel">
+                    <h2>Weak Entity Types</h2>
+
+                    <div class="highlight-box">
+                        <p><strong>Definition:</strong> Entity that does NOT have its own key attribute. Depends on "owner" or "identifying" entity type.</p>
+                    </div>
+
+                    <h3>Identification</h3>
+                    <p class="formula"><strong>Full Key = Partial Key + Owner's Primary Key</strong></p>
+                    <p><em>Example: DEPENDENT identified by Name + Employee's SSN</em></p>
+
+                    <h3>Notation</h3>
+                    <ul class="notation-list">
+                        <li>Weak entity: <span class="notation double-rect">DOUBLE RECTANGLE</span></li>
+                        <li>Identifying relationship: <span class="notation double-diamond">DOUBLE DIAMOND</span></li>
+                        <li>Partial key: <span class="notation dashed-underline">DASHED UNDERLINE</span></li>
+                    </ul>
+
+                    <h3>Requirements</h3>
+                    <ul class="feature-list">
+                        <li>Identifying relationship is 1:N from owner to weak entity (or 1:1)</li>
+                        <li>Each weak entity has exactly one owner; owner can have many weak entities</li>
+                        <li>Total participation from weak entity side (exactly one owner)</li>
+                    </ul>
+
+                    <h3>Chain of Weakness</h3>
+                    <div class="highlight-box">
+                        <p>Weak entities can form chains - each level adds to the key</p>
+                        <p><em>Example: Host → Secondary Domain → Primary Domain</em></p>
+                    </div>
+                    <button class="mark-complete-btn" data-topic="er-weak">Mark as Studied</button>
+                </div>
+
+                <div id="eer" class="topic-panel">
+                    <h2>Extended ER (EER) Model</h2>
+
+                    <h3>Specialization vs Generalization</h3>
+                    <div class="two-column">
+                        <div class="column">
+                            <h4>Specialization (Top-down)</h4>
+                            <p>Defining subclasses of an entity type</p>
+                            <p><em>EMPLOYEE → SECRETARY, TECHNICIAN, ENGINEER</em></p>
+                        </div>
+                        <div class="column">
+                            <h4>Generalization (Bottom-up)</h4>
+                            <p>Combining entity types with common attributes</p>
+                            <p><em>CAR and TRUCK → VEHICLE</em></p>
+                        </div>
+                    </div>
+
+                    <h3>Subclass Constraints</h3>
+                    <div class="constraint-grid">
+                        <div class="eer-constraint">
+                            <h4>Disjointness</h4>
+                            <div class="constraint-options">
+                                <div><strong>(d) Disjoint:</strong> Entity in AT MOST ONE subclass</div>
+                                <div><strong>(o) Overlapping:</strong> Entity in MULTIPLE subclasses allowed</div>
+                            </div>
+                        </div>
+                        <div class="eer-constraint">
+                            <h4>Completeness</h4>
+                            <div class="constraint-options">
+                                <div><strong>Total (double line):</strong> Entity MUST be in some subclass</div>
+                                <div><strong>Partial (single line):</strong> Entity MAY NOT belong to any subclass</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Inheritance</h3>
+                    <ul class="feature-list">
+                        <li>Subclass inherits ALL attributes from superclass</li>
+                        <li>Subclass inherits ALL relationships from superclass</li>
+                        <li>Subclass can have its own specific attributes/relationships</li>
+                    </ul>
+
+                    <h3>Specialization Lattice</h3>
+                    <div class="highlight-box">
+                        <p>Subclass can have <strong>multiple superclasses</strong> (multiple inheritance)</p>
+                        <p>Forms a lattice rather than simple hierarchy</p>
+                        <p>Shared subclass inherits from all parent classes</p>
+                        <p><em>Example: ENGINEERING_MANAGER inherits from both ENGINEER and MANAGER</em></p>
+                    </div>
+                    <button class="mark-complete-btn" data-topic="er-eer">Mark as Studied</button>
+                </div>
+
+                <div id="er-design" class="topic-panel">
+                    <h2>Design Guidelines</h2>
+
+                    <h3>1. Avoid Redundancy</h3>
+                    <ul class="feature-list">
+                        <li>Don't say same thing more than once</li>
+                        <li>Wastes space and causes inconsistency</li>
+                    </ul>
+                    <div class="two-column">
+                        <div class="column highlight-box warning">
+                            <h4>BAD</h4>
+                            <p>Beer entity with ManufacturerAddress (repeats for each beer)</p>
+                        </div>
+                        <div class="column highlight-box success">
+                            <h4>GOOD</h4>
+                            <p>Separate Manufacturer entity with address</p>
+                        </div>
+                    </div>
+
+                    <h3>2. Enforce Constraints in Schema</h3>
+                    <ul class="feature-list">
+                        <li>Don't rely on data to follow assumptions</li>
+                        <li>Schema should prevent violations</li>
+                        <li>Example: If only one instructor per course, enforce it</li>
+                    </ul>
+
+                    <h3>3. Entity Set vs Attribute Decision</h3>
+                    <p>Make entity set <strong>only if</strong>:</p>
+                    <ul class="feature-list">
+                        <li>Has non-key attributes OR relationships with multiple entities</li>
+                        <li>Is the "many" side in many-one relationship</li>
+                    </ul>
+                    <p><em>Otherwise use attribute.</em></p>
+
+                    <h3>4. Don't Overuse Weak Entities</h3>
+                    <ul class="feature-list">
+                        <li>In practice, create unique IDs (SSN, VIN, etc.)</li>
+                        <li>Only use weak entities when truly dependent</li>
+                    </ul>
+
+                    <h3>ER Model Limitations</h3>
+                    <ul class="feature-list warning">
+                        <li>No relationship between entity type and relationship type</li>
+                        <li>No relationship between entity type and collection of entity types</li>
+                        <li>No constraints (exclusion, co-existence) among relationship types</li>
+                        <li><em>Note: UML and NIAM models allow these</em></li>
+                    </ul>
+                    <button class="mark-complete-btn" data-topic="er-design">Mark as Studied</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Normalization Section -->
+        <section id="normalization" class="section">
+            <h1>Normalization</h1>
+
+            <div class="topic-nav">
+                <button class="topic-btn active" data-topic="anomalies">Anomalies & FDs</button>
+                <button class="topic-btn" data-topic="closure">Attribute Closure</button>
+                <button class="topic-btn" data-topic="normal-forms">Normal Forms</button>
+                <button class="topic-btn" data-topic="decomposition">Decomposition</button>
+            </div>
+
+            <div class="topic-content">
+                <div id="anomalies" class="topic-panel active">
+                    <h2>Informal Design Guidelines</h2>
+                    <ol class="design-guidelines">
+                        <li>Each tuple should represent one entity or relationship instance
+                            <ul>
+                                <li>Don't mix attributes of different entities (EMPLOYEEs, DEPARTMENTs, PROJECTs)</li>
+                                <li>Only use foreign keys to refer to other entities</li>
+                            </ul>
+                        </li>
+                        <li>Design schemas that don't suffer from insertion, deletion, and update anomalies</li>
+                        <li>Design relations to minimize NULL values (frequently NULL attributes should be in separate relations)</li>
+                    </ol>
+
+                    <h2>Update Anomalies</h2>
+                    <p>Redundancy leads to three types of anomalies:</p>
+
+                    <div class="anomaly-cards">
+                        <div class="anomaly-card update">
+                            <h4>Update Anomaly</h4>
+                            <p>A change must be made in multiple places</p>
+                        </div>
+                        <div class="anomaly-card deletion">
+                            <h4>Deletion Anomaly</h4>
+                            <p>Deleting data may cause loss of other information</p>
+                        </div>
+                        <div class="anomaly-card insertion">
+                            <h4>Insertion Anomaly</h4>
+                            <p>Cannot insert data without providing other unrelated data</p>
+                        </div>
+                    </div>
+
+                    <h2>Functional Dependency (FD)</h2>
+                    <div class="highlight-box">
+                        <p><strong>X → Y</strong> means: for every pair of tuples t and s, if they agree on all attributes in X, they must agree on all attributes in Y</p>
+                    </div>
+
+                    <h3>Examples</h3>
+                    <ul class="example-list">
+                        <li>SSN → Name, Address</li>
+                        <li>Address → ZipCode</li>
+                        <li>Author, Title → PublDate</li>
+                    </ul>
+
+                    <h3>Armstrong's Axioms</h3>
+                    <ol class="axiom-list">
+                        <li><strong>Reflexivity:</strong> If Y ⊆ X, then X → Y (trivial FD)</li>
+                        <li><strong>Augmentation:</strong> If X → Y, then XZ → YZ</li>
+                        <li><strong>Transitivity:</strong> If X → Y and Y → Z, then X → Z</li>
+                    </ol>
+                    <h4>Derived Rules</h4>
+                    <ul class="feature-list">
+                        <li><strong>Union:</strong> If X → Y and X → Z, then X → YZ</li>
+                        <li><strong>Decomposition:</strong> If X → YZ, then X → Y and X → Z</li>
+                    </ul>
+                    <button class="mark-complete-btn" data-topic="norm-anomalies">Mark as Studied</button>
+                </div>
+
+                <div id="closure" class="topic-panel">
+                    <h2>Attribute Closure</h2>
+
+                    <div class="highlight-box">
+                        <p><strong>X<sup>+</sup></strong> (attribute closure of X with respect to F) = set of all attributes A such that X → A</p>
+                    </div>
+
+                    <h3>Algorithm to Compute X<sup>+</sup></h3>
+                    <div class="algorithm-box">
+                        <pre>closure := X
+repeat
+    old := closure
+    for each FD Z → V in F:
+        if Z ⊆ closure and V ∉ closure:
+            closure := closure ∪ V
+until old = closure</pre>
+                    </div>
+
+                    <h3>Use of Attribute Closure</h3>
+                    <p>To check if X → Y is entailed by F, verify if <strong>Y ⊆ X<sup>+</sup></strong></p>
+
+                    <h3>Minimal Cover</h3>
+                    <div class="highlight-box">
+                        <p>A <strong>minimal cover U</strong> of F satisfies:</p>
+                        <ul>
+                            <li>U is equivalent to F (same closure)</li>
+                            <li>All FDs have form X → A (single attribute on RHS)</li>
+                            <li>Cannot make U smaller by deleting FD or attribute</li>
+                        </ul>
+                    </div>
+
+                    <h4>Computing Minimal Cover</h4>
+                    <ol class="algorithm-steps">
+                        <li>Decompose RHS to single attributes</li>
+                        <li>Remove unnecessary LHS attributes (if X → A and XY → A both hold, Y is unnecessary)</li>
+                        <li>Remove unnecessary FDs (if F - {f} entails f, then f is unnecessary)</li>
+                    </ol>
+
+                    <h3>Key Concepts</h3>
+                    <ul class="feature-list">
+                        <li><strong>Superkey:</strong> Set of attributes that uniquely identifies tuples</li>
+                        <li><strong>Candidate Key:</strong> Minimal superkey (no proper subset is a superkey)</li>
+                        <li><strong>Primary Key:</strong> Chosen candidate key</li>
+                        <li><strong>Prime Attribute:</strong> Attribute that is part of some candidate key</li>
+                        <li><strong>Non-prime Attribute:</strong> Attribute not part of any candidate key</li>
+                        <li><strong>Full Functional Dependency:</strong> X → Y where no attribute can be removed from X</li>
+                        <li><strong>Partial Dependency:</strong> X → Y where some attribute can be removed from X</li>
+                        <li><strong>Transitive Dependency:</strong> X → Y → Z (Z depends on X through Y)</li>
+                    </ul>
+                    <button class="mark-complete-btn" data-topic="norm-closure">Mark as Studied</button>
+                </div>
+
+                <div id="normal-forms" class="topic-panel">
+                    <h2>Normal Forms Hierarchy</h2>
+                    <div class="nf-hierarchy">
+                        <div class="nf-item nf4">4NF</div>
+                        <div class="nf-arrow">⇓ implies</div>
+                        <div class="nf-item bcnf">BCNF</div>
+                        <div class="nf-arrow">⇓ implies</div>
+                        <div class="nf-item nf3">3NF</div>
+                        <div class="nf-arrow">⇓ implies</div>
+                        <div class="nf-item nf2">2NF</div>
+                        <div class="nf-arrow">⇓ implies</div>
+                        <div class="nf-item nf1">1NF</div>
+                    </div>
+
+                    <div class="nf-details">
+                        <div class="nf-card">
+                            <h3>1NF (First Normal Form)</h3>
+                            <ul>
+                                <li>No composite attributes</li>
+                                <li>No multivalued attributes</li>
+                                <li>No nested relations</li>
+                                <li>All attribute values must be <strong>atomic</strong></li>
+                            </ul>
+                        </div>
+
+                        <div class="nf-card">
+                            <h3>2NF (Second Normal Form)</h3>
+                            <ul>
+                                <li>Must be in 1NF</li>
+                                <li>No <strong>partial dependencies</strong></li>
+                                <li>Every non-prime attribute is fully functionally dependent on every key</li>
+                            </ul>
+                            <p class="example"><em>Bad: {SSN, PNUMBER} → ENAME is partial because SSN → ENAME alone holds</em></p>
+                        </div>
+
+                        <div class="nf-card">
+                            <h3>3NF (Third Normal Form)</h3>
+                            <p>For every FD X → A:</p>
+                            <ul>
+                                <li>A ⊆ X (trivial), OR</li>
+                                <li>X is a superkey, OR</li>
+                                <li>A is part of some key (prime attribute)</li>
+                            </ul>
+                            <p class="note">3NF allows some redundancy but guarantees dependency-preserving decomposition</p>
+                        </div>
+
+                        <div class="nf-card">
+                            <h3>BCNF (Boyce-Codd Normal Form)</h3>
+                            <p>For every FD X → Y:</p>
+                            <ul>
+                                <li>Y ⊆ X (trivial), OR</li>
+                                <li>X is a superkey</li>
+                            </ul>
+                            <p class="note">BCNF eliminates redundancy but decomposition may not be dependency-preserving</p>
+                        </div>
+
+                        <div class="nf-card">
+                            <h3>4NF (Fourth Normal Form)</h3>
+                            <p>For every non-trivial multi-valued dependency:</p>
+                            <ul>
+                                <li>X ∩ Y is a superkey of R</li>
+                            </ul>
+                            <p class="note">4NF implies BCNF</p>
+                        </div>
+                    </div>
+                    <button class="mark-complete-btn" data-topic="norm-forms">Mark as Studied</button>
+                </div>
+
+                <div id="decomposition" class="topic-panel">
+                    <h2>Decomposition</h2>
+                    <p><strong>Goal:</strong> Eliminate redundancy by decomposing into relations in higher normal form</p>
+
+                    <h3>Requirements for Good Decomposition</h3>
+                    <div class="two-column">
+                        <div class="column highlight-box">
+                            <h4>1. Lossless</h4>
+                            <p>Original relation can be reconstructed</p>
+                            <p class="formula">r = r1 ⋈ r2 ⋈ ... ⋈ rn</p>
+                        </div>
+                        <div class="column highlight-box">
+                            <h4>2. Dependency-preserving</h4>
+                            <p>All FDs can be checked without joining tables</p>
+                            <p class="formula">F<sup>+</sup> = (F1 ∪ F2)<sup>+</sup></p>
+                        </div>
+                    </div>
+
+                    <h3>Test for Lossless Decomposition (Binary)</h3>
+                    <div class="highlight-box">
+                        <p>Decomposition of R into R1 and R2 is <strong>lossless</strong> if and only if:</p>
+                        <ul>
+                            <li>R1 ∩ R2 → R1 is in F<sup>+</sup>, OR</li>
+                            <li>R1 ∩ R2 → R2 is in F<sup>+</sup></li>
+                        </ul>
+                        <p><em>The common attributes must be a key of at least one decomposed relation</em></p>
+                    </div>
+
+                    <h3>BCNF Decomposition Algorithm</h3>
+                    <div class="algorithm-box">
+                        <code>
+while there exists S in Decomp not in BCNF:
+  find X → Y that violates BCNF (X is not superkey)
+  replace S with:
+    S1 = (XY, F1)
+    S2 = (S - (Y-X), F2)
+                        </code>
+                    </div>
+                    <p><strong>Properties:</strong> Always lossless, may NOT be dependency-preserving</p>
+
+                    <h3>3NF Synthesis Algorithm</h3>
+                    <ol class="algorithm-steps">
+                        <li>Compute minimal cover U of F</li>
+                        <li>Partition U by LHS (group FDs with same left side)</li>
+                        <li>For each group, create schema Ri with attributes from that group's FDs</li>
+                        <li>If no Ri contains a key of R, add R0 = (key attributes, {})</li>
+                    </ol>
+                    <p><strong>Properties:</strong> Lossless, dependency-preserving, in 3NF</p>
+
+                    <h3>Denormalization</h3>
+                    <div class="highlight-box warning">
+                        <p><strong>Tradeoff:</strong> Intentionally introduce redundancy to improve query performance</p>
+                        <ul>
+                            <li>Avoids expensive joins for frequently-run queries</li>
+                            <li>Sacrifices BCNF/3NF properties</li>
+                            <li>Requires careful application-level management of redundancy</li>
+                        </ul>
+                    </div>
+                    <button class="mark-complete-btn" data-topic="norm-decomp">Mark as Studied</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SQL Section -->
+        <section id="sql" class="section">
+            <h1>SQL</h1>
+
+            <div class="topic-nav">
+                <button class="topic-btn active" data-topic="ddl">DDL</button>
+                <button class="topic-btn" data-topic="queries">Queries</button>
+                <button class="topic-btn" data-topic="joins-sql">Joins</button>
+                <button class="topic-btn" data-topic="aggregates">Aggregates</button>
+                <button class="topic-btn" data-topic="subqueries">Subqueries</button>
+                <button class="topic-btn" data-topic="views">Views</button>
+                <button class="topic-btn" data-topic="nulls">NULL Values</button>
+            </div>
+
+            <div class="topic-content">
+                <div id="ddl" class="topic-panel active">
+                    <h2>Data Definition Language (DDL)</h2>
+
+                    <h3>Basic Domain Types</h3>
+                    <div class="type-grid">
+                        <div class="type-item"><code>char(n)</code> - fixed length string</div>
+                        <div class="type-item"><code>varchar(n)</code> - variable length string</div>
+                        <div class="type-item"><code>int/integer</code> - an integer</div>
+                        <div class="type-item"><code>smallint</code> - a small integer</div>
+                        <div class="type-item"><code>numeric(p,d)</code> - fixed point number</div>
+                        <div class="type-item"><code>real, double precision</code> - floating point</div>
+                        <div class="type-item"><code>float(n)</code> - floating point with precision n</div>
+                        <div class="type-item"><code>DATE</code> - yyyy-mm-dd</div>
+                        <div class="type-item"><code>TIME</code> - hh:mm:ss</div>
+                        <div class="type-item"><code>TIME(i)</code> - hh:mm:ss:ii (fractions of seconds)</div>
+                        <div class="type-item"><code>TIMESTAMP</code> - DATE + TIME combined</div>
+                        <div class="type-item"><code>INTERVAL</code> - relative value (DAY/TIME or YEAR/MONTH)</div>
+                    </div>
+
+                    <h3>CREATE TABLE</h3>
+                    <pre class="code-block">
+CREATE TABLE DEPT (
+    DNAME VARCHAR(10) NOT NULL,
+    DNUMBER INTEGER NOT NULL,
+    MGRSSN CHAR(9),
+    MGRSTARTDATE DATE,
+    PRIMARY KEY (DNUMBER),
+    UNIQUE (DNAME),
+    FOREIGN KEY (MGRSSN) REFERENCES EMP(SSN)
+);</pre>
+
+                    <h3>Constraints</h3>
+                    <ul class="feature-list">
+                        <li><code>NOT NULL</code> - Null value not permitted</li>
+                        <li><code>PRIMARY KEY</code> - Implies NOT NULL and UNIQUE</li>
+                        <li><code>DEFAULT</code> - Specifies default value</li>
+                        <li><code>UNIQUE</code> - Attributes form a candidate key</li>
+                        <li><code>CHECK (P)</code> - Predicate that must be satisfied</li>
+                    </ul>
+
+                    <h3>Foreign Key Actions</h3>
+                    <pre class="code-block">
+FOREIGN KEY (branch_name) REFERENCES branch
+    ON DELETE CASCADE
+    ON UPDATE CASCADE</pre>
+                    <p>Options: <code>SET NULL</code>, <code>SET DEFAULT</code>, <code>CASCADE</code></p>
+
+                    <h3>ALTER TABLE</h3>
+                    <pre class="code-block">
+ALTER TABLE table_name ADD column_name datatype;
+ALTER TABLE table_name DROP column_name;</pre>
+                    <ul class="feature-list">
+                        <li>New attributes get NULL values in existing tuples</li>
+                        <li>NOT NULL constraint not allowed for newly added attributes</li>
+                    </ul>
+
+                    <h3>DROP TABLE</h3>
+                    <pre class="code-block">DROP TABLE table_name;</pre>
+                    <ul class="feature-list">
+                        <li>Removes table and its definition completely</li>
+                        <li>Table can no longer be used in queries or updates</li>
+                    </ul>
+
+                    <h3>Assertions</h3>
+                    <p>A predicate the database must always satisfy (may introduce significant overhead)</p>
+                    <pre class="code-block">
+CREATE ASSERTION assertion_name CHECK (predicate)</pre>
+                    <p><strong>Technique:</strong> Assert "for all X, P(X)" using "NOT EXISTS X such that NOT P(X)"</p>
+
+                    <h3>Deferred Constraint Checking</h3>
+                    <ul class="feature-list">
+                        <li><code>INITIALLY DEFERRED</code> - checked at end of transaction</li>
+                        <li><code>DEFERRABLE</code> - can be deferred when desired</li>
+                        <li><code>SET CONSTRAINTS constraint-list DEFERRED</code></li>
+                    </ul>
+                    <button class="mark-complete-btn" data-topic="sql-ddl">Mark as Studied</button>
+                </div>
+
+                <div id="queries" class="topic-panel">
+                    <h2>SQL Queries</h2>
+
+                    <h3>Basic SELECT Structure</h3>
+                    <pre class="code-block">
+SELECT &lt;attribute list&gt;
+FROM &lt;table list&gt;
+WHERE &lt;condition&gt;
+GROUP BY &lt;grouping columns&gt;
+HAVING &lt;group conditions&gt;
+ORDER BY &lt;sorting specifications&gt;</pre>
+
+                    <h3>Key Points</h3>
+                    <ul class="feature-list">
+                        <li>SQL relation is a MULTI-SET (allows duplicates)</li>
+                        <li>Use <code>DISTINCT</code> to eliminate duplicates</li>
+                        <li><code>*</code> selects all columns</li>
+                    </ul>
+
+                    <h3>Pattern Matching</h3>
+                    <pre class="code-block">
+WHERE CourseNo LIKE 'IS%'   -- % = any characters
+WHERE Name LIKE 'J_hn'      -- _ = single character</pre>
+
+                    <h3>NULL Testing</h3>
+                    <pre class="code-block">
+WHERE FacSSN IS NULL
+WHERE FacSSN IS NOT NULL</pre>
+
+                    <h3>Query Evaluation Order</h3>
+                    <ol class="eval-order">
+                        <li><strong>FROM</strong> - Cartesian product / joins</li>
+                        <li><strong>WHERE</strong> - Filter rows</li>
+                        <li><strong>GROUP BY</strong> - Sort and group rows</li>
+                        <li>Compute aggregates, reduce each group to one row</li>
+                        <li><strong>HAVING</strong> - Filter groups</li>
+                        <li><strong>SELECT</strong> - Project columns</li>
+                        <li><strong>ORDER BY</strong> - Sort results</li>
+                    </ol>
+                    <button class="mark-complete-btn" data-topic="sql-queries">Mark as Studied</button>
+                </div>
+
+                <div id="joins-sql" class="topic-panel">
+                    <h2>SQL Joins</h2>
+
+                    <h3>Implicit Join (Cross Product Style)</h3>
+                    <pre class="code-block">
+SELECT columns
+FROM Table1, Table2
+WHERE Table1.key = Table2.key AND other_conditions;</pre>
+
+                    <h3>Explicit Join</h3>
+                    <pre class="code-block">
+SELECT columns
+FROM Table1 INNER JOIN Table2 ON Table1.key = Table2.key
+WHERE other_conditions;</pre>
+
+                    <h3>Self-Join</h3>
+                    <pre class="code-block">
+SELECT T1.ProfId
+FROM Teaching T1, Teaching T2
+WHERE T1.ProfId = T2.ProfId
+  AND T1.Semester = T2.Semester
+  AND T1.CrsCode &lt;&gt; T2.CrsCode;</pre>
+
+                    <h3>Outer Joins</h3>
+                    <div class="join-comparison">
+                        <div class="join-type">
+                            <h4>LEFT OUTER JOIN</h4>
+                            <p>All rows from left + matching from right</p>
+                            <pre>FROM T1 LEFT JOIN T2 ON condition</pre>
+                        </div>
+                        <div class="join-type">
+                            <h4>RIGHT OUTER JOIN</h4>
+                            <p>All rows from right + matching from left</p>
+                            <pre>FROM T1 RIGHT JOIN T2 ON condition</pre>
+                        </div>
+                        <div class="join-type">
+                            <h4>FULL OUTER JOIN</h4>
+                            <p>All rows from both tables</p>
+                            <pre>FROM T1 FULL JOIN T2 ON condition</pre>
+                        </div>
+                    </div>
+                    <button class="mark-complete-btn" data-topic="sql-joins">Mark as Studied</button>
+                </div>
+
+                <div id="aggregates" class="topic-panel">
+                    <h2>Aggregate Functions</h2>
+
+                    <h3>Functions</h3>
+                    <div class="func-grid">
+                        <div class="func-item"><code>COUNT(*)</code> - Count all rows</div>
+                        <div class="func-item"><code>COUNT(col)</code> - Count non-null values</div>
+                        <div class="func-item"><code>SUM(col)</code> - Sum of values</div>
+                        <div class="func-item"><code>AVG(col)</code> - Average of values</div>
+                        <div class="func-item"><code>MAX(col)</code> - Maximum value</div>
+                        <div class="func-item"><code>MIN(col)</code> - Minimum value</div>
+                    </div>
+
+                    <h3>GROUP BY</h3>
+                    <pre class="code-block">
+SELECT T.StudId, AVG(T.Grade), COUNT(*)
+FROM Transcript T
+GROUP BY T.StudId;</pre>
+
+                    <h3>HAVING (Filter Groups)</h3>
+                    <pre class="code-block">
+SELECT T.StudId, AVG(T.Grade) AS CumGpa
+FROM Transcript T
+WHERE T.CrsCode LIKE 'CS%'
+GROUP BY T.StudId
+HAVING AVG(T.Grade) > 3.5;</pre>
+
+                    <h3>Important Rules</h3>
+                    <ul class="feature-list warning">
+                        <li>Cannot mix aggregates with non-aggregate columns without GROUP BY</li>
+                        <li>Aggregates cannot be used in WHERE clause</li>
+                        <li>GROUP BY must list ALL non-aggregate columns from SELECT</li>
+                        <li>WHERE: row conditions (before grouping)</li>
+                        <li>HAVING: group conditions (after grouping)</li>
+                    </ul>
+                    <button class="mark-complete-btn" data-topic="sql-aggregates">Mark as Studied</button>
+                </div>
+
+                <div id="subqueries" class="topic-panel">
+                    <h2>Nested Queries (Subqueries)</h2>
+
+                    <h3>Type I - Non-Correlated (Independent)</h3>
+                    <ul class="feature-list">
+                        <li>Subquery executes ONCE</li>
+                        <li>No reference to outer query</li>
+                        <li>Used with IN, NOT IN, comparison operators</li>
+                    </ul>
+                    <pre class="code-block">
+SELECT C.CrsName
+FROM Course C
+WHERE C.CrsCode NOT IN
+    (SELECT T.CrsCode FROM Teaching T WHERE T.Sem = 'S2000');</pre>
+
+                    <h3>Type II - Correlated</h3>
+                    <ul class="feature-list">
+                        <li>Subquery executes for EACH ROW of outer query</li>
+                        <li>References outer query variables</li>
+                        <li>Used with EXISTS, NOT EXISTS</li>
+                    </ul>
+                    <pre class="code-block">
+SELECT P.Name
+FROM Professor P
+WHERE EXISTS (
+    SELECT * FROM Teaching T
+    WHERE T.ProfId = P.Id    -- correlation to outer query
+    AND T.Semester = 'F2000');</pre>
+
+                    <h3>Division in SQL</h3>
+                    <p><em>Find professors who teach courses in ALL departments</em></p>
+                    <pre class="code-block">
+SELECT P.Id
+FROM Professor P
+WHERE NOT EXISTS
+    (SELECT D.DeptId FROM Department D
+     EXCEPT
+     SELECT C.DeptId
+     FROM Teaching T, Course C
+     WHERE T.ProfId = P.Id AND T.CrsCode = C.CrsCode);</pre>
+
+                    <h3>Set Operators</h3>
+                    <ul class="feature-list">
+                        <li><code>UNION</code> - combines results, removes duplicates</li>
+                        <li><code>INTERSECT</code> - returns common rows</li>
+                        <li><code>EXCEPT</code> (or MINUS) - rows in first but not second</li>
+                    </ul>
+
+                    <h3>COUNT Method for Division</h3>
+                    <pre class="code-block">
+SELECT StdNo
+FROM StdClub
+GROUP BY StdNo
+HAVING COUNT(*) = (SELECT COUNT(*) FROM Club);</pre>
+
+                    <h3>Nested Queries in FROM Clause</h3>
+                    <p>Used for nested aggregates (aggregate of aggregates) and multiple independent calculations:</p>
+                    <pre class="code-block">
+SELECT T.CourseNo, COUNT(*) AS NumOfferings, AVG(T.EnrollCount)
+FROM
+    (SELECT Course.CourseNo, Offering.OfferNo,
+            COUNT(*) AS EnrollCount
+     FROM Offering, Enrollment, Course
+     WHERE Offering.OfferNo = Enrollment.OfferNo
+       AND Course.CourseNo = Offering.CourseNo
+     GROUP BY Course.CourseNo, Offering.OfferNo) T
+GROUP BY T.CourseNo;</pre>
+                    <button class="mark-complete-btn" data-topic="sql-subqueries">Mark as Studied</button>
+                </div>
+
+                <div id="views" class="topic-panel">
+                    <h2>Views</h2>
+
+                    <h3>Definition</h3>
+                    <div class="highlight-box">
+                        <p>A <strong>virtual table</strong> (not physically stored) - result of a SELECT statement, materialized when used</p>
+                    </div>
+                    <pre class="code-block">
+CREATE VIEW CumGpa (StudId, Cum) AS
+    SELECT T.StudId, AVG(T.Grade)
+    FROM Transcript T
+    GROUP BY T.StudId;</pre>
+
+                    <h3>Benefits of Views</h3>
+                    <ul class="feature-list">
+                        <li><strong>Access Control:</strong> Limit visibility to certain columns/rows</li>
+                        <li><strong>Customization:</strong> Simplify complex database for users</li>
+                        <li><strong>Reusability:</strong> Can be used in multiple queries</li>
+                    </ul>
+
+                    <h3>Updating Views</h3>
+                    <p><strong>Updatable view restrictions:</strong></p>
+                    <ul class="feature-list warning">
+                        <li>No Cartesian product in FROM clause</li>
+                        <li>No aggregates, GROUP BY, HAVING</li>
+                        <li>Single base table</li>
+                    </ul>
+
+                    <h4>Problems with View Updates</h4>
+                    <ul class="feature-list">
+                        <li>Projected-out columns get NULL or DEFAULT</li>
+                        <li>New tuples may not appear in view (use <code>WITH CHECK OPTION</code>)</li>
+                        <li>Ambiguous updates on joins</li>
+                    </ul>
+                    <button class="mark-complete-btn" data-topic="sql-views">Mark as Studied</button>
+                </div>
+
+                <div id="nulls" class="topic-panel">
+                    <h2>NULL Values and Three-Valued Logic</h2>
+
+                    <div class="highlight-box">
+                        <p>Truth values: <strong>TRUE</strong>, <strong>FALSE</strong>, <strong>UNKNOWN</strong></p>
+                    </div>
+
+                    <h3>AND Truth Table</h3>
+                    <table class="truth-table">
+                        <tr><th>AND</th><th>T</th><th>F</th><th>U</th></tr>
+                        <tr><td><strong>T</strong></td><td>T</td><td>F</td><td>U</td></tr>
+                        <tr><td><strong>F</strong></td><td>F</td><td>F</td><td>F</td></tr>
+                        <tr><td><strong>U</strong></td><td>U</td><td>F</td><td>U</td></tr>
+                    </table>
+
+                    <h3>OR Truth Table</h3>
+                    <table class="truth-table">
+                        <tr><th>OR</th><th>T</th><th>F</th><th>U</th></tr>
+                        <tr><td><strong>T</strong></td><td>T</td><td>T</td><td>T</td></tr>
+                        <tr><td><strong>F</strong></td><td>T</td><td>F</td><td>U</td></tr>
+                        <tr><td><strong>U</strong></td><td>T</td><td>U</td><td>U</td></tr>
+                    </table>
+
+                    <h3>NOT</h3>
+                    <ul class="feature-list">
+                        <li>NOT TRUE = FALSE</li>
+                        <li>NOT FALSE = TRUE</li>
+                        <li>NOT UNKNOWN = UNKNOWN</li>
+                    </ul>
+
+                    <h3>NULL Behavior</h3>
+                    <ul class="feature-list">
+                        <li>Comparison with NULL yields UNKNOWN</li>
+                        <li>Rows with UNKNOWN in WHERE are <strong>discarded</strong></li>
+                        <li>Arithmetic with NULL yields NULL</li>
+                        <li><code>COUNT(*)</code> counts all rows; <code>COUNT(column)</code> ignores nulls</li>
+                        <li>Other aggregates (SUM, AVG, etc.) ignore nulls</li>
+                        <li>In GROUP BY, NULL values are grouped together</li>
+                    </ul>
+
+                    <h3>Methods to Find "Rows NOT in Another Set"</h3>
+                    <ol class="feature-list">
+                        <li>Type II nested query with <code>NOT EXISTS</code></li>
+                        <li>Type I nested query with <code>NOT IN</code></li>
+                        <li>One-sided outer join with <code>IS NULL</code></li>
+                        <li><code>MINUS</code>/<code>EXCEPT</code> operator</li>
+                    </ol>
+                    <button class="mark-complete-btn" data-topic="sql-nulls">Mark as Studied</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transactions Section -->
+        <section id="transactions" class="section">
+            <h1>Transaction Processing</h1>
+
+            <div class="topic-nav">
+                <button class="topic-btn active" data-topic="acid">ACID & Basics</button>
+                <button class="topic-btn" data-topic="recovery">Recovery</button>
+                <button class="topic-btn" data-topic="schedules">Schedules</button>
+                <button class="topic-btn" data-topic="serializability">Serializability</button>
+            </div>
+
+            <div class="topic-content">
+                <div id="acid" class="topic-panel active">
+                    <h2>Transaction Basics</h2>
+                    <div class="highlight-box">
+                        <p><strong>Transaction:</strong> A logical unit of database processing that includes one or more access operations (read/retrieval, write/insert/update, delete).</p>
+                    </div>
+
+                    <h3>Key Characteristics</h3>
+                    <ul class="feature-list">
+                        <li>Consistent on-line database despite failures and interleavings</li>
+                        <li>Small work units (e.g., transfer, deposit, withdraw)</li>
+                        <li><strong>Throughput:</strong> # transactions per second (TPS)</li>
+                        <li><strong>Concurrency:</strong> # units overlapping a given unit</li>
+                    </ul>
+
+                    <h3>Transaction Operations</h3>
+                    <ul class="feature-list">
+                        <li><code>read_item(X)</code> - read database item X into program variable</li>
+                        <li><code>write_item(X)</code> - write to database</li>
+                        <li><code>begin/end transaction</code> - define transaction boundaries</li>
+                        <li><code>commit</code> - make changes permanent</li>
+                        <li><code>abort (rollback)</code> - undo all changes</li>
+                    </ul>
+
+                    <h3>ACID Properties</h3>
+                    <div class="acid-grid">
+                        <div class="acid-card">
+                            <h4>A - Atomicity</h4>
+                            <p>All actions performed or none (all-or-nothing)</p>
+                        </div>
+                        <div class="acid-card">
+                            <h4>C - Consistency</h4>
+                            <p>Moves database from one consistent state to another</p>
+                        </div>
+                        <div class="acid-card">
+                            <h4>I - Isolation</h4>
+                            <p>Transaction's updates not visible to others before commit</p>
+                        </div>
+                        <div class="acid-card">
+                            <h4>D - Durability</h4>
+                            <p>Committed changes to DB are permanent</p>
+                        </div>
+                    </div>
+
+                    <h3>Transaction States</h3>
+                    <div class="state-diagram">
+                        <span class="state">Active</span> →
+                        <span class="state">Partially Committed</span> →
+                        <span class="state success">Committed</span>
+                        <br><br>
+                        <span class="state">Active</span> →
+                        <span class="state failed">Failed</span> →
+                        <span class="state">Terminated</span>
+                    </div>
+
+                    <h3>Concurrency Problems</h3>
+                    <ul class="problem-list">
+                        <li><strong>Lost Update:</strong> Two transactions update same item, one update lost</li>
+                        <li><strong>Dirty Read:</strong> Reading uncommitted data that may be rolled back</li>
+                        <li><strong>Unrepeatable Read:</strong> Same query returns different results in same transaction</li>
+                        <li><strong>Incorrect Summary:</strong> Aggregate computed while another transaction updating</li>
+                    </ul>
+                    <button class="mark-complete-btn" data-topic="trans-acid">Mark as Studied</button>
+                </div>
+
+                <div id="recovery" class="topic-panel">
+                    <h2>Recovery</h2>
+                    <div class="highlight-box">
+                        <p><strong>Goal:</strong> Either all actions in a transaction are completed or has no effect on database or other transactions</p>
+                    </div>
+
+                    <h3>Failure Types</h3>
+                    <ul class="feature-list">
+                        <li><strong>Catastrophic failure</strong> - complete system crash</li>
+                        <li><strong>System failure</strong> - HW/disk/OS failure</li>
+                        <li><strong>Transaction error/exception</strong> - programming errors</li>
+                        <li><strong>Rollback due to concurrency control</strong> - deadlock resolution</li>
+                    </ul>
+
+                    <h3>System Log (Journal)</h3>
+                    <p>Keeps track of all transaction operations affecting database item values.</p>
+
+                    <h4>Log Record Types</h4>
+                    <ul class="log-records">
+                        <li><code>[start_transaction, T]</code> - T has started</li>
+                        <li><code>[write_item, T, X, old_value, new_value]</code> - T changed X</li>
+                        <li><code>[read_item, T, X]</code> - T read X</li>
+                        <li><code>[commit, T]</code> - T completed successfully</li>
+                        <li><code>[abort, T]</code> - T has been aborted</li>
+                    </ul>
+
+                    <h3>Recovery Operations</h3>
+                    <div class="two-column">
+                        <div class="column highlight-box">
+                            <h4>UNDO</h4>
+                            <ul>
+                                <li>Applies to single operation</li>
+                                <li>Trace BACKWARD through log</li>
+                                <li>Reset items to OLD values</li>
+                            </ul>
+                        </div>
+                        <div class="column highlight-box">
+                            <h4>REDO</h4>
+                            <ul>
+                                <li>Ensures committed operations applied</li>
+                                <li>Trace FORWARD through log</li>
+                                <li>Set items to NEW values</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>Commit Point</h3>
+                    <p>When all transaction operations accessing DB executed successfully AND all effects recorded in the log.</p>
+                    <p class="note"><strong>Force Writing:</strong> Before commit point, any unwritten log portion must be written to disk</p>
+                    <button class="mark-complete-btn" data-topic="trans-recovery">Mark as Studied</button>
+                </div>
+
+                <div id="schedules" class="topic-panel">
+                    <h2>Schedules</h2>
+                    <div class="highlight-box">
+                        <p><strong>Schedule S(T1,...,Tn):</strong> An ordering of operations such that the order of operations of Ti in S equals the order of operations in Ti</p>
+                        <p>Ordering can be total or partial</p>
+                    </div>
+
+                    <h3>Notation</h3>
+                    <ul class="notation-list">
+                        <li><code>ri(X)</code> - read item X by Ti</li>
+                        <li><code>wi(X)</code> - write item X by Ti</li>
+                        <li><code>ci</code> - commit Ti</li>
+                        <li><code>ai</code> - abort Ti</li>
+                    </ul>
+
+                    <h3>Committed Projection</h3>
+                    <p><strong>C(S)</strong> = operations from committed transactions only</p>
+
+                    <h3>Number of Schedules Formula</h3>
+                    <div class="highlight-box">
+                        <p><strong>#schedules S(T1,...,Tn) = N! / (N1! × N2! × ... × Nn!)</strong></p>
+                        <p>where Ni = number of operations in Ti, N = N1 + N2 + ... + Nn</p>
+                    </div>
+
+                    <h3>Recoverability Properties</h3>
+                    <div class="schedule-hierarchy">
+                        <div class="schedule-level strict">
+                            <h4>Strict</h4>
+                            <p>No concurrent read/write on any data item</p>
+                            <p class="formula">wj(X) &lt; cj &lt; ri(X) AND wj(X) &lt; cj &lt; wi(X)</p>
+                        </div>
+                        <div class="subset-arrow">⊂</div>
+                        <div class="schedule-level cascadeless">
+                            <h4>Cascadeless</h4>
+                            <p>No dirty read - If Ti reads from Tj, then cj &lt; ri(X)</p>
+                        </div>
+                        <div class="subset-arrow">⊂</div>
+                        <div class="schedule-level recoverable">
+                            <h4>Recoverable</h4>
+                            <p>If Ti reads from Tj, then cj &lt; ci</p>
+                        </div>
+                    </div>
+                    <button class="mark-complete-btn" data-topic="trans-schedules">Mark as Studied</button>
+                </div>
+
+                <div id="serializability" class="topic-panel">
+                    <h2>Serializability</h2>
+                    <p><strong>Why important:</strong> Characterization of "correctness" - legal interleavings</p>
+
+                    <h3>Types of Schedules</h3>
+                    <ul class="feature-list">
+                        <li><strong>Serial:</strong> No interleaving; all actions of Ti together in S</li>
+                        <li><strong>Non-serial:</strong> Interleaving exists; for some Ti, actions not together</li>
+                        <li><strong>Serializable:</strong> Equivalent to some serial schedule of same transactions</li>
+                    </ul>
+
+                    <h3>Equivalence Types</h3>
+                    <div class="two-column">
+                        <div class="column highlight-box warning">
+                            <h4>Result Equivalent</h4>
+                            <p>Produce same final state of DB</p>
+                            <p><strong>NOT sufficient</strong> for correctness!</p>
+                        </div>
+                        <div class="column highlight-box success">
+                            <h4>Conflict Equivalent</h4>
+                            <p>Order of any two conflicting operations is identical</p>
+                            <p>This is the standard for correctness</p>
+                        </div>
+                    </div>
+
+                    <h3>Conflicting Operations</h3>
+                    <p>On same item X, different transactions:</p>
+                    <div class="conflict-grid">
+                        <div class="conflict-item conflict">Wi(X) ... Wj(X) <span>CONFLICT</span></div>
+                        <div class="conflict-item conflict">Wi(X) ... Rj(X) <span>CONFLICT</span></div>
+                        <div class="conflict-item conflict">Ri(X) ... Wj(X) <span>CONFLICT</span></div>
+                        <div class="conflict-item safe">Ri(X) ... Rj(X) <span>NOT conflict</span></div>
+                    </div>
+
+                    <h3>Precedence Graph Algorithm</h3>
+                    <ol class="algorithm-steps">
+                        <li>Look at only ReadItem(X) and WriteItem(X) operations</li>
+                        <li>Construct precedence graph:
+                            <ul>
+                                <li>Nodes = transactions T1, T2, ..., Tn</li>
+                                <li>Edges = conflicts (Ti → Tj if conflict and Ti's operation is first)</li>
+                            </ul>
+                        </li>
+                        <li>Check for cycles</li>
+                    </ol>
+
+                    <div class="highlight-box success">
+                        <p><strong>NO CYCLE</strong> in precedence graph ⟺ Schedule is <strong>CONFLICT SERIALIZABLE</strong></p>
+                        <p>If serializable, topological sort gives equivalent serial order</p>
+                    </div>
+
+                    <h3>Global Serializability (Distributed Databases)</h3>
+                    <div class="highlight-box">
+                        <p>For distributed transactions:</p>
+                        <ul>
+                            <li>Must ensure subtransactions are serializable at each site</li>
+                            <li>Must also ensure global serialization over all sites</li>
+                        </ul>
+                    </div>
+                    <button class="mark-complete-btn" data-topic="trans-serial">Mark as Studied</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flashcards Section -->
+        <section id="flashcards" class="section">
+            <h1>Flashcards</h1>
+            <p class="intro">Click on a card to flip it and reveal the answer!</p>
+
+            <div class="flashcard-controls">
+                <select id="flashcard-topic">
+                    <option value="all">All Topics</option>
+                    <option value="dbms">DBMS Basics</option>
+                    <option value="er">ER & EER</option>
+                    <option value="norm">Normalization</option>
+                    <option value="sql">SQL</option>
+                    <option value="trans">Transactions</option>
+                </select>
+                <button id="shuffle-btn" class="btn">Shuffle Cards</button>
+                <span id="card-counter">Card 1 of 20</span>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard" id="current-flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p id="flashcard-question">Click "Start" to begin</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <p id="flashcard-answer">Answer will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-nav">
+                <button id="prev-card" class="btn">← Previous</button>
+                <button id="flip-card" class="btn primary">Flip Card</button>
+                <button id="next-card" class="btn">Next →</button>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="section">
+            <h1>Quiz</h1>
+
+            <div id="quiz-setup">
+                <h2>Test Your Knowledge</h2>
+                <div class="quiz-options">
+                    <div class="option-group">
+                        <label>Select Topic:</label>
+                        <select id="quiz-topic">
+                            <option value="all">All Topics</option>
+                            <option value="dbms">DBMS Basics</option>
+                            <option value="er">ER & EER</option>
+                            <option value="norm">Normalization</option>
+                            <option value="sql">SQL</option>
+                            <option value="trans">Transactions</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Number of Questions:</label>
+                        <select id="quiz-count">
+                            <option value="5">5 Questions</option>
+                            <option value="10" selected>10 Questions</option>
+                            <option value="15">15 Questions</option>
+                            <option value="20">20 Questions</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="start-quiz" class="btn primary large">Start Quiz</button>
+            </div>
+
+            <div id="quiz-container" style="display: none;">
+                <div class="quiz-progress">
+                    <div class="quiz-progress-bar">
+                        <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+                    </div>
+                    <span id="quiz-progress-text">Question 1 of 10</span>
+                </div>
+
+                <div class="quiz-question-container">
+                    <h3 id="quiz-question">Question text here</h3>
+                    <div class="quiz-options-container" id="quiz-options">
+                        <!-- Options will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="quiz-nav">
+                    <button id="prev-question" class="btn" disabled>← Previous</button>
+                    <button id="next-question" class="btn">Next →</button>
+                    <button id="submit-quiz" class="btn primary" style="display: none;">Submit Quiz</button>
+                </div>
+            </div>
+
+            <div id="quiz-results" style="display: none;">
+                <h2>Quiz Results</h2>
+                <div class="results-summary">
+                    <div class="score-circle">
+                        <span id="score-percent">0%</span>
+                    </div>
+                    <p>You got <span id="correct-count">0</span> out of <span id="total-count">10</span> questions correct!</p>
+                </div>
+                <div id="results-breakdown">
+                    <!-- Results breakdown will be inserted here -->
+                </div>
+                <button id="retake-quiz" class="btn primary">Take Another Quiz</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
