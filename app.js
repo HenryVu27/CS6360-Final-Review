@@ -23,6 +23,11 @@ function navigateTo(sectionId) {
         }
     });
 
+    // Initialize SQL Practice if navigating to that section
+    if (sectionId === 'sql-practice' && typeof initSQLPractice === 'function') {
+        initSQLPractice();
+    }
+
     // Scroll to top
     window.scrollTo(0, 0);
 }
